@@ -4,6 +4,48 @@
 
 {% block main %}
     <main>
-        <h1>Page d'accueil</h1>
+            <section id="container-video">
+                <video autoplay muted loop id="background-video">
+                    <source src="./assets/video/video-background.mp4" type="video/mp4">
+                    Votre navigateur ne supporte pas les vidéos HTML5.
+                </video>
+                <input class="bouton-bleu" type="button" value="EN SAVOIR PLUS" id="know-more" />
+            </section>
+            
+            <section class="welcome">
+                <div id="welcome-text">
+                    <h1>Bienvenue sur ROCKET TIPS !</h1>
+                    <p>Tu souhaites progresser sur Rocket League ou échanger avec la communauté ?</p>
+                    <p>Tu es au bon endroit !</p>
+                </div>
+                <div class="icons">
+                    <div class="icon">
+                        <img src="./assets/img/carbook.webp" alt="Articles">
+                        <p>Articles</p>
+                    </div>
+                    <div class="icon">
+                        <img src="./assets/img/forum-icon.webp" alt="Forum">
+                        <p>Forum</p>
+                    </div>
+                </div>
+            </section>
+    
+            <section class="articles">
+                <h2>Nos derniers articles</h2>
+                <div class="container-articles">
+                    <div class="article-item">
+                        <img src="./assets/img/half-flip.webp" alt="Le Half Flip">
+                        <p>Le FLIP RESET</p>
+                    </div>
+                    <div class="article-item">
+                        <img src="./assets/img/wavedashh.webp" alt="Le Wave Dash">
+                        <p>Le WAVE DASH</p>
+                    </div>
+                    <div class="article-item">
+                        <img src="./assets/img/aerial-shot.webp" alt="L'Aerial Shot">
+                        <p>L'AERIAL SHOT</p>
+                    </div>
+                </div>
+            </section>
     </main>
 {% endblock %}

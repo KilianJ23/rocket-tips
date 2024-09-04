@@ -1,0 +1,311 @@
+@charset "UTF-8";
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #010a13;
+  flex-wrap: wrap;
+  align-items: center;
+  font-family: "Krona One";
+}
+
+.left-block-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 50%;
+}
+
+#logoRL {
+  width: 50%;
+  height: auto;
+}
+#logoRL > img {
+  width: 100%;
+  height: auto;
+}
+
+#navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  font-size: max(1.6vw, 1.3rem);
+  font-weight: 900;
+  letter-spacing: 0.2rem;
+  align-items: center;
+  color: #FFFFFF;
+}
+#navbar > a {
+  display: flex;
+  text-decoration: none;
+  margin: 0px 10px;
+  width: 100px;
+  text-align: center;
+  height: 80%;
+  padding: 1em;
+  font-size: 1rem;
+  align-items: center;
+  color: #FFFFFF;
+  justify-content: center;
+}
+
+.right-block-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.burger-menu {
+  display: none;
+}
+
+.burger-menu img {
+  display: none;
+}
+
+.nav-menu.open {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 80px;
+  left: 0;
+  right: 0;
+  background-color: #010a13;
+  z-index: 1000;
+}
+
+@media screen and (max-width: 740px) {
+  .nav-menu {
+    display: none;
+  }
+  .nav-menu.open {
+    display: flex;
+  }
+  .burger-menu {
+    display: block;
+    cursor: pointer;
+  }
+  .burger-menu img {
+    display: block;
+    padding-right: 50px;
+    cursor: pointer;
+  }
+  .left-block-container {
+    width: auto;
+  }
+  #logoRL {
+    width: auto;
+  }
+}
+.bouton-bleu {
+  background-color: #29B4E0;
+  font-family: "Krona One";
+  font-size: 0.7rem;
+  color: #FFFFFF;
+  border-radius: 10px;
+  width: 30%;
+  text-align: center;
+}
+
+#search-form {
+  background-color: #29B4E0;
+  width: 50%;
+  /*height: 44px;*/
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+input {
+  all: unset;
+  font: 16px system-ui;
+  color: #fff;
+  height: 100%;
+  width: 70%;
+  padding: 6px 10px;
+}
+
+::placeholder {
+  color: #fff;
+  opacity: 0.7;
+}
+
+svg {
+  color: #fff;
+  fill: currentColor;
+  width: 24px;
+  height: 24px;
+  padding: 0px;
+}
+
+button {
+  all: unset;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+}
+
+main {
+  font-family: Krona One;
+}
+
+#container-video {
+  position: relative;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+#background-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: 0;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+#know-more {
+  position: relative;
+  height: 2rem;
+  width: 10rem;
+  z-index: 1;
+  margin-bottom: 2rem;
+}
+
+.welcome {
+  text-align: center;
+}
+
+#welcome-text {
+  background-color: #047ea5;
+  color: #FFFFFF;
+  padding: 1rem;
+}
+
+#welcome-text h1 {
+  font-size: clamp(1rem, 2.5vw, 3rem);
+}
+
+#welcome-text p {
+  font-size: clamp(0.7rem, 1.5vw, 1.5rem);
+}
+
+.welcome .icons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  max-height: 20vw;
+}
+
+.welcome .icon {
+  flex: 1;
+  text-align: center;
+  width: 40%;
+}
+
+.icon img {
+  height: 80%;
+}
+
+.articles {
+  background-color: #333333;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.container-articles {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.article-item {
+  flex: 1; /* S'assure que tous les items prennent la même largeur */
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.article-item img {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.article-item p {
+  margin-top: 1em;
+}
+
+@media screen and (min-width: 425px) {
+  .container-articles {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .article-item {
+    max-width: 31%;
+  }
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  bottom: 0;
+  width: 100%;
+  background-color: #010a13;
+  color: #FFFFFF;
+  text-align: center;
+  padding: 0;
+}
+
+.footer p {
+  font-family: "Krona One";
+  font-size: 0.8rem;
+  margin-left: 1vw;
+}
+
+.social {
+  display: flex;
+  padding: 1em;
+}
+
+.social a {
+  text-decoration: none;
+  color: #29B4E0;
+}
+
+.social a:hover {
+  background-color: #1E2328;
+  border-radius: 1em;
+}
+
+.social i {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 1em;
+}
+
+/*.social a:visited {
+    color: #C89C3D;
+  }*/
+.social a:active {
+  color: white;
+}
+
+main {
+  /*color: blue;
+  font-family: cursive;*/
+}
+
+/*# sourceMappingURL=style.css.map */

@@ -3,7 +3,7 @@
 class DefaultController extends AbstractController
 {
     public function __construct() {
-        // j'appelle le constructeur de l'AbstractController pour lui permettre de charger Twig
+        // Call to the AbstractController so it can load twig
         parent::__construct();
     }
 

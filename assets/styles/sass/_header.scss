@@ -1,0 +1,116 @@
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #010a13;
+    flex-wrap: wrap;
+    align-items: center;
+    font-family: "Krona One";
+}
+
+.left-block-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 50%;
+    
+}
+
+
+#logoRL {
+        width: 50%;
+        height: auto;
+        
+        > img {
+            width: 100%;
+            height: auto;
+        }
+}
+
+#navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    font-size: max(1.6vw, 1.3rem);
+    font-weight: 900;
+    letter-spacing: 0.2rem;
+    align-items: center;
+    color: #FFFFFF;
+    
+    > a {
+    display: flex;
+    text-decoration: none;
+    margin: 0px 10px;
+    width: max(100px);
+    text-align: center;
+    height: 80%;
+    padding: 1em;
+    font-size: 1rem;
+    align-items: center;
+    color: #FFFFFF;
+    justify-content: center;
+    }
+}
+
+
+.right-block-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.burger-menu {
+    display:none;
+}
+
+.burger-menu img {
+    display: none;
+  }
+  
+// MENU NAV OUVERT QUAND ECRAN PC
+  
+  .nav-menu.open {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 80px; // Ajustez selon la hauteur de votre header
+  left: 0;
+  right: 0;
+  background-color: #010a13;
+  z-index: 1000;
+}
+
+//  MEDIA QUERY POUR TABLETTE
+
+@media screen and (max-width: 740px) {
+  .nav-menu {
+    display: none;
+  }
+
+  .nav-menu.open {
+    display: flex;
+  }
+
+  .burger-menu {
+    display: block;
+    cursor: pointer;
+  }
+
+  .burger-menu img {
+    display: block;
+    padding-right: 50px;
+    cursor: pointer;
+  }
+
+  .left-block-container {
+    width: auto;
+  }
+
+  #logoRL {
+    width: auto;
+  }
+}
+
+
