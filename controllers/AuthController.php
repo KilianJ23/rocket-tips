@@ -9,9 +9,19 @@ class AuthController extends AbstractController
         $this->um = new UserManager();
     }
 
-    public function register() : void
+    //Méthode de displayRegister() : Affiche le template de register et vide les erreurs stockées en session.
+
+    public function displayRegister() : void
     {
         $this->render('front/register.html.twig', []);
+        
+        if(isset($_SESSION['error_message'])) {
+            unset($_SESSION['error_message']);
+        }
+
+        if(isset($_SESSION['success_message'])) {
+            unset($_SESSION['success_message']);
+        }
     }
     
     function isValidEmail($email) {
@@ -106,11 +116,23 @@ class AuthController extends AbstractController
             $this->redirect('inscription');
         }
     }
-
+    
+    //Méthode de login() : Affiche le template de login et vide les erreurs stockées en session.
+    
     public function login() : void
     {
         $this->render('front/login.html.twig', []);
+        
+        if(isset($_SESSION['error_message'])) {
+            unset($_SESSION['error_message']);
+        }
+
+        if(isset($_SESSION['success_message'])) {
+            unset($_SESSION['success_message']);
+        }
     }
+
+    //Méthode de checkLogin() : vérifie la présence de l'utilisateur dans la BDD et la cohérence des données entrées.
 
     public function checkLogin() : void
     {
@@ -148,7 +170,7 @@ class AuthController extends AbstractController
                 }
                 else
                 {
-                    $_SESSION['error_message'] = "Identifiant ou mot de passe incorrect.";
+                    $_SESSION['error_message'] = "Cet utilisateur n'existe pas";
                     $this->redirect('connexion');
                 }
             }

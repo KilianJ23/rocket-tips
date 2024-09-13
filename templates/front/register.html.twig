@@ -1,13 +1,21 @@
 {% extends 'front/layout.html.twig' %}
 
+{% block title %}Inscription{{ parent() }}{% endblock %}
+
 {% block main %}
-    <main class="container py-5">
+    <main class="container-register">
         {% if session.error_message %}
-            <div class="alert alert-danger" role="alert">
+            <div class="error alert" role="alert">
                 {{ session.error_message }}
             </div>
         {% endif %}
-        <form action="index.php?route=check-inscription" method="post">
+        {% if session.success_message %}
+            <div class="success alert" role="alert">
+                {{ session.success_message }}
+            </div>
+        {% endif %}
+        <h1>Création de compte</h1>
+        <form action="index.php?route=check-inscription" method="post" class="register-form">
             <input type="hidden" id="csrf_token" name="csrf_token" value="{{ session.csrf_token }}" />
             <fieldset>
                 <label for="email" class="form-label">
@@ -33,8 +41,8 @@
                 </label>
                 <input type="password" name="confirm_password" id="confirm_password" required class="form-control"/>
             </fieldset>
-            <fieldset class="mt-3">
-                <button type="submit" class="btn btn-primary">Créer un compte</button>
+            <fieldset class="submit-btn">
+                <button type="submit" class="register-btn">Créer un compte</button>
             </fieldset>
         </form>
     </main>

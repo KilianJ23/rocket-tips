@@ -6,7 +6,6 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Krona+One&display=swap" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/bd5d7da3bf.js" crossorigin="anonymous"></script>
         <title>
             {% block title %}
@@ -21,7 +20,37 @@
         
         {% block header %}
             <header>
-                <div class="left-block-container">
+                <nav>
+                    <a href="#" class="nav-icon" aria-label="visit homepage" aria-current="page">
+                        <img src="./assets/img/rltips-logo.webp" alt="Rocket Tips logo">
+                        <span id="titre-logo">Rocket Tips</span>
+                    </a>
+                    
+                    <div class="main-navlinks">
+                        <button class="hamburger" type="button" aria-label="Toggle navigation" aria-expanded="false">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                        <div class="navlinks-container">
+                            <a href="?route=home" aria-current="page">Accueil</a>
+                            <a href="?route=articles">Articles</a>
+                            <a href="#">Forum</a>
+                        </div>
+                    </div>
+                    
+                    <div class="nav-authentication">
+                        <a href="#" class="user-toggler" aria-label="Sign in page">
+                          <img src="./assets/img/user.svg" alt="user icon" />
+                        </a>
+                        <div class="sign-btns">
+                          <a href="?route=inscription">Inscription</a>
+                          <a href="?route=connexion">Connexion</a>
+                        </div>
+                    </div>
+                    
+                </nav>
+                <!--<div class="left-block-container">
 
                     <nav id="navbar" class="nav-menu">
                         <a id="logoRL" href="index.php">
@@ -69,7 +98,7 @@
         {% endblock %}
         
         {% block javascript %}
-            <script type="application/javascript" src="/assets/js/main.js"></script>
+            <script type="application/javascript" src="assets/js/main.js"></script>
             <script>
       const f = document.getElementById('search-form');
       const q = document.getElementById('query');

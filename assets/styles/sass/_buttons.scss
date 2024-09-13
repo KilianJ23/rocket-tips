@@ -47,3 +47,18 @@
         width: 44px;
         height: 44px;
       }
+
+//LOGIN & REGISTER button
+
+.register-btn {
+    display: inline-block;
+    background-color: $skyblue;
+    color: $white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    width: 80%;
+}

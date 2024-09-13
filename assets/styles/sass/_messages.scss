@@ -1,0 +1,25 @@
+.alert {
+	/*display: flex;
+	flex-direction: row;
+	justify-content: start;
+	align-items: center;*/
+	color: $white;
+	border-radius: 20px;
+	padding: .5em 1em;
+	box-sizing: border-box;
+	border: 2px solid;
+	width: 65%;
+	text-align: center;
+}
+
+.error {
+    border-color: $red;
+    background-color: $red;
+    opacity: 0.9;
+}
+
+.success {
+    border-color: $green;
+    background-color: $green;
+    opacity: 0.9;
+}

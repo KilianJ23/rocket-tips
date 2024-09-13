@@ -4,16 +4,16 @@ class Router {
 
     private DefaultController $dc;
     private AuthController $ac;
-
     private AdminController $adc;
-
     private UserController $uc;
+    private ArticlesController $arc;
 
     public function __construct() {
         $this->dc = new DefaultController();
         $this->ac = new AuthController();
         $this->adc = new AdminController();
         $this->uc = new UserController();
+        $this->arc = new ArticlesController();
     }
 
     private function checkAdmin() : void {
@@ -29,14 +29,17 @@ class Router {
     }
 
     public function handleRequest(? string $route) : void {
-        if($route === null)
+        if($route === null || $route ==="home")
         {
             // le code si il n'y a pas de route ( === la page d'accueil)
             $this->dc->homepage();
         }
+        
+                                            //Routes CONNEXION/INSCRIPTION
+        
         else if($route === "inscription")
         {
-            $this->ac->register();
+            $this->ac->displayRegister();
         }
         else if($route === "check-inscription")
         {
@@ -67,6 +70,9 @@ class Router {
         {
             $this->adc->checkLogin();
         }
+        
+                                            //Routes pour GESTION USERS
+        
         else if($route === "admin-create-user")
         {
             $this->checkAdmin();
@@ -101,6 +107,13 @@ class Router {
         {
             $this->checkAdmin();
             $this->uc->show(intval($_GET["user_id"]));
+        }
+        
+                                                    //Routes pour GESTION ARTICLES
+        
+        else if($route === "articles")
+        {
+            $this->arc->displayArticles();
         }
         else
         {

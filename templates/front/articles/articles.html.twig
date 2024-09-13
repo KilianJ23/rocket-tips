@@ -1,0 +1,57 @@
+{% extends 'front/layout.html.twig' %}
+
+{% block title %}Articles{{ parent() }}{% endblock %}
+
+{% block main %}
+    <main class="section-articles">
+        <section class="container-filters">
+            <h2>Voir les articles :</h2>
+            <div class="filter-buttons">
+                <div class="filter-btn beginner">
+                    <img src="./assets/img/bookmark-vert.webp">
+                    <a href="">DEBUTANT</a>
+                </div>
+                <div class="filter-btn beginner">
+                    <img src="./assets/img/bookmark-orange.webp">
+                    <a href="">INTERMEDIAIRE</a>
+                </div>
+                <div class="filter-btn beginner">
+                    <img src="./assets/img/bookmark-rouge.webp">
+                    <a href="">AVANCE</a>
+                </div>
+            </div>
+        </section>
+        
+        <section class="container-gris">
+            <div class="container-articles">
+                <h2>Nos derniers articles</h2>
+                <div class="container-article-cards">
+                    
+                {% for article in articles %}
+                    
+                    <div class="article-card">
+                        <img src="./assets/img/half-flip.webp" alt="Article sur le Half Flip">
+                        <div class="container-description">
+                            <h3>{{ article.title }}</h3>
+                            <p>{{ article.description }}</p>
+                        </div>
+                    </div>
+                    
+                {% endfor %}
+                    
+                </div>
+                {% if total_pages > 1 %}
+                    <nav aria-label="Navigation des articles">
+                        <ul class="pagination">
+                            {% for i in 1..total_pages %}
+                                <li class="page-item {{ i == page_actuelle ? 'active' : '' }}">
+                                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </nav>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+{% endblock %}

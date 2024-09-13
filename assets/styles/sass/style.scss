@@ -1,11 +1,13 @@
 @import "_varsColors.scss";
 @import "_header";
+@import "_messages";
 @import "_buttons";
 @import "_home";
+@import "_articles";
+@import "_forms";
 @import "_footer";
 
 
 main {
-    /*color: blue;
-    font-family: cursive;*/
+    min-height: 90vh;
 }

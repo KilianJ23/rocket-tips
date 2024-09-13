@@ -1,116 +1,245 @@
 
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    background-color: #010a13;
-    flex-wrap: wrap;
-    align-items: center;
-    font-family: "Krona One";
+  font-family: "Krona One";
+  background-color: #000000;
+  position: relative;
+  z-index: 10;
 }
 
-.left-block-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 50%;
-    
-}
-
-
-#logoRL {
-        width: 50%;
-        height: auto;
-        
-        > img {
-            width: 100%;
-            height: auto;
-        }
-}
-
-#navbar {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    font-size: max(1.6vw, 1.3rem);
-    font-weight: 900;
-    letter-spacing: 0.2rem;
-    align-items: center;
-    color: #FFFFFF;
-    
-    > a {
-    display: flex;
-    text-decoration: none;
-    margin: 0px 10px;
-    width: max(100px);
-    text-align: center;
-    height: 80%;
-    padding: 1em;
-    font-size: 1rem;
-    align-items: center;
-    color: #FFFFFF;
-    justify-content: center;
+header nav {
+  position: sticky;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 15px 25px;
+  background: #000000;
+  box-shadow: inset 0px -1px 0px #c5c5c6;
+  
+    #titre-logo {
+      font-weight: 600;
     }
 }
 
 
-.right-block-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-}
 
-.burger-menu {
-    display:none;
-}
-
-.burger-menu img {
-    display: none;
-  }
-  
-// MENU NAV OUVERT QUAND ECRAN PC
-  
-  .nav-menu.open {
+.nav-icon {
   display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 80px; // Ajustez selon la hauteur de votre header
-  left: 0;
-  right: 0;
-  background-color: #010a13;
-  z-index: 1000;
+  align-items: center;
+  text-decoration: none;
+  margin-right: 20px;
 }
 
-//  MEDIA QUERY POUR TABLETTE
+.nav-icon span {
+  font-family: "Krona One";
+  font-size: 25px;
+  margin-left: 10px;
+  font-weight: 400;
+  color: $white;
+}
 
-@media screen and (max-width: 740px) {
-  .nav-menu {
+.hamburger {
+  display: none;
+}
+
+.navlinks-container a {
+  margin: 0 10px;
+  font-size: clamp(0.4rem, 1.8vw, 1rem);
+  font-weight: 500;
+  text-decoration: none;
+  color: #FFFFFF;
+  display: inline-block;
+  position: relative;
+}
+
+.navlinks-container a::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -3px;
+  width: 100%;
+  height: 1px;
+  transform: scale(0);
+  transform-origin: left;
+  background: #FFFFFF;
+  transition: transform 0.3s ease-out;
+}
+.navlinks-container a:hover::after {
+  transform: scaleX(1);
+}
+
+.nav-authentication {
+  margin-left: auto;
+}
+
+.sign-btns {
+  width: 20vw;
+  display:flex;
+  justify-content: flex-end;
+  gap: 0.8rem;
+}
+
+.sign-btns a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $lightgrey;
+    font-size: clamp(0.5rem, 1.8vw, 0.7rem);
+    font-family: "Krona One";
+    color: $black;
+    border-radius: 10px;
+    width: 15rem;
+    height: 2rem;
+    text-align: center;
+    text-decoration: none;
+    z-index: 1;
+    transition: all 0.4s ease;
+}
+
+.sign-btns a:hover {
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  transform: translateY(-5px);
+}
+
+.sign-btns a:nth-child(2) {
+  border: none;
+  background-color: $skyblue;
+  color: $white;
+}
+.user-toggler {
+  display: none;
+}
+
+// MEDIA QUERY pour Tablettes et téléphones : affichage du menu burger
+
+@media screen and (max-width: 768px) {
+  nav {
+    padding: 15px 20px;
+    position: relative;
+  }
+
+  /* nav */
+  .nav-icon {
+    order: 2;
+    margin: 0 auto;
+  }
+
+  .nav-icon span {
+    font-size: 22px;
+  }
+  .main-navlinks {
+    order: 1;
+    width: auto;
+  }
+
+  /* hamburger */
+  .hamburger {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    background: $black;
+    align-items: center;
+    position: relative;
+  }
+
+//Création de l'animation et du visuel du menu burger
+
+  .hamburger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: $white;
+    color: $white;
+    position: absolute;
+    pointer-events: none;
+    transition: opacity 0.3s 0.15s ease-out;
+  }
+  .hamburger span:nth-child(1),
+  .hamburger span:nth-child(3) {
+    transition: transform 0.3s ease-out;
+  }
+
+  .hamburger span:nth-child(1) {
+    transform: translateY(7px);
+  }
+  .hamburger span:nth-child(3) {
+    transform: translateY(-7px);
+  }
+
+  .hamburger.open span:nth-child(1) {
+    transform: translate(0) rotate(135deg);
+  }
+  .hamburger.open span:nth-child(2) {
+    opacity: 0;
+    transition: opacity 0s ease-out;
+  }
+  .hamburger.open span:nth-child(3) {
+    transform: translate(0) rotate(-135deg);
+  }
+
+  .navlinks-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    background: $black;
+    top: 100%;
+    left: 0;
+    transform: translate(-100%);
+    height: 100vh;
+    width: 100%;
+    padding: 15px 20px 15px 20px;
+    border-right: 1px solid #c5c5c6;
+    transition : transform 0.4s ease-out;
+  }
+  .open {
+    transform: translate(0%);
+  }
+
+  .navlinks-container a {
+    font-size: 18px;
+    margin: 10px 0px;
+    background-color: $darkgrey;
+    padding: 0.5rem;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+  }
+  
+  .navlinks-container a:hover::after {
+  transform: scaleX(0.95);
+}
+
+  .nav-authentication {
+    order: 3;
+    margin-left: 0;
+  }
+  .sign-btns {
     display: none;
   }
 
-  .nav-menu.open {
-    display: flex;
-  }
-
-  .burger-menu {
+  .user-toggler {
     display: block;
     cursor: pointer;
+    border: none;
   }
 
-  .burger-menu img {
-    display: block;
-    padding-right: 50px;
-    cursor: pointer;
+  .user-toggler img {
+    width: 20px;
+    color: $white;
   }
 
-  .left-block-container {
-    width: auto;
-  }
-
-  #logoRL {
-    width: auto;
-  }
 }
 
-
+header img {
+  width: 40px;
+}
