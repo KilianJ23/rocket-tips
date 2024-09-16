@@ -115,6 +115,14 @@ class Router {
         {
             $this->arc->displayArticles();
         }
+        else if($route === "articles" && isset($_GET["page"]))
+        {
+            $this->arc->displayArticles();
+        }
+        else if ($route === "articles" && isset($_GET["level"]))
+        {
+            $this->arc->displayArticles();
+        }
         else
         {
             // le code si c'est aucun des cas précédents ( === page 404)

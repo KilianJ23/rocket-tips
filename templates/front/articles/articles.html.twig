@@ -9,30 +9,36 @@
             <div class="filter-buttons">
                 <div class="filter-btn beginner">
                     <img src="./assets/img/bookmark-vert.webp">
-                    <a href="">DEBUTANT</a>
+                    <a href="?route=articles&level=1">{{ 'débutant'|upper }}</a>
                 </div>
                 <div class="filter-btn beginner">
                     <img src="./assets/img/bookmark-orange.webp">
-                    <a href="">INTERMEDIAIRE</a>
+                    <a href="?route=articles&level=2">{{ 'intermédiaire'|upper }}</a>
                 </div>
                 <div class="filter-btn beginner">
                     <img src="./assets/img/bookmark-rouge.webp">
-                    <a href="">AVANCE</a>
+                    <a href="?route=articles&level=3">{{ 'avancé'|upper }}</a>
                 </div>
             </div>
         </section>
         
         <section class="container-gris">
             <div class="container-articles">
-                <h2>Nos derniers articles</h2>
+                {% if not level is defined %}
+                                    <h2>Nos derniers articles</h2>
+                                {% else %}
+                                    <h2>Nos derniers articles - niveau {{ level_name|upper }}</h2>
+                                {% endif %}
                 <div class="container-article-cards">
                     
                 {% for article in articles %}
                     
                     <div class="article-card">
-                        <img src="./assets/img/half-flip.webp" alt="Article sur le Half Flip">
+                        <img src="./assets/img/half-flip.webp" alt="Article sur {{ article.title }}">
                         <div class="container-description">
-                            <h3>{{ article.title }}</h3>
+                            <a href="?route=article&id={{ article.id }}">
+                                <h3>{{ article.title }}</h3>
+                            </a>
                             <p>{{ article.description }}</p>
                         </div>
                     </div>
@@ -40,17 +46,19 @@
                 {% endfor %}
                     
                 </div>
-                {% if total_pages > 1 %}
-                    <nav aria-label="Navigation des articles">
-                        <ul class="pagination">
-                            {% for i in 1..total_pages %}
-                                <li class="page-item {{ i == page_actuelle ? 'active' : '' }}">
-                                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </nav>
-                {% endif %}
+                <nav aria-label="Pagination">
+                    <ul class="pagination" id="pagination">
+                        {% for i in 1..total_pages %}
+                            <li class="page-item {{ i == page_actuelle ? 'active' : '' }}">
+                                {% if not level is defined %}
+                                    <a class="page-link" href="?route=articles&page={{ i }}" data-page="{{ i }}">{{ i }}</a>
+                                {% else %}
+                                    <a class="page-link" href="?route=articles&page={{ i }}&level={{ level }}" data-page="{{ i }}">{{ i }}</a>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </nav>
             </div>
         </section>
     </main>
