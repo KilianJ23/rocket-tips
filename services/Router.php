@@ -14,6 +14,7 @@ class Router {
         $this->adc = new AdminController();
         $this->uc = new UserController();
         $this->arc = new ArticlesController();
+        $this->fc = new ForumController();
     }
 
     private function checkAdmin() : void {
@@ -28,105 +29,115 @@ class Router {
         }
     }
 
-    public function handleRequest(? string $route) : void {
-        if($route === null || $route ==="home")
-        {
-            // le code si il n'y a pas de route ( === la page d'accueil)
+    public function handleRequest(?string $route): void {
+    switch ($route) {
+        case null:
+        case "home":
+            // Page d'accueil
             $this->dc->homepage();
-        }
-        
-                                            //Routes CONNEXION/INSCRIPTION
-        
-        else if($route === "inscription")
-        {
+            break;
+
+        // Routes CONNEXION/INSCRIPTION
+        case "inscription":
             $this->ac->displayRegister();
-        }
-        else if($route === "check-inscription")
-        {
+            break;
+
+        case "check-inscription":
             $this->ac->checkRegister();
-        }
-        else if($route === "connexion")
-        {
+            break;
+
+        case "connexion":
             $this->ac->login();
-        }
-        else if($route === "check-connexion")
-        {
+            break;
+
+        case "check-connexion":
             $this->ac->checkLogin();
-        }
-        else if($route === "deconnexion")
-        {
+            break;
+
+        case "deconnexion":
             $this->ac->logout();
-        }
-        else if($route === "admin")
-        {
+            break;
+
+        // Routes pour ADMIN
+        case "admin":
             $this->checkAdmin();
             $this->adc->home();
-        }
-        else if($route === "admin-connexion")
-        {
+            break;
+
+        case "admin-connexion":
             $this->adc->login();
-        }
-        else if($route === "admin-check-connexion")
-        {
+            break;
+
+        case "admin-check-connexion":
             $this->adc->checkLogin();
-        }
-        
-                                            //Routes pour GESTION USERS
-        
-        else if($route === "admin-create-user")
-        {
+            break;
+
+        // Routes pour GESTION USERS
+        case "admin-create-user":
             $this->checkAdmin();
             $this->uc->create();
-        }
-        else if($route === "admin-check-create-user")
-        {
+            break;
+
+        case "admin-check-create-user":
             $this->checkAdmin();
             $this->uc->checkCreate();
-        }
-        else if($route === "admin-edit-user" && isset($_GET["user_id"]))
-        {
-            $this->checkAdmin();
-            $this->uc->edit(intval($_GET["user_id"]));
-        }
-        else if($route === "admin-check-edit-user" && isset($_GET["user_id"]))
-        {
-            $this->checkAdmin();
-            $this->uc->checkEdit(intval($_GET["user_id"]));
-        }
-        else if($route === "admin-delete-user" && isset($_GET["user_id"]))
-        {
-            $this->checkAdmin();
-            $this->uc->delete(intval($_GET["user_id"]));
-        }
-        else if($route === "admin-list-users")
-        {
+            break;
+
+        case "admin-edit-user":
+            if (isset($_GET["user_id"])) {
+                $this->checkAdmin();
+                $this->uc->edit(intval($_GET["user_id"]));
+            }
+            break;
+
+        case "admin-check-edit-user":
+            if (isset($_GET["user_id"])) {
+                $this->checkAdmin();
+                $this->uc->checkEdit(intval($_GET["user_id"]));
+            }
+            break;
+
+        case "admin-delete-user":
+            if (isset($_GET["user_id"])) {
+                $this->checkAdmin();
+                $this->uc->delete(intval($_GET["user_id"]));
+            }
+            break;
+
+        case "admin-list-users":
             $this->checkAdmin();
             $this->uc->list();
-        }
-        else if($route === "admin-show-user" && isset($_GET["user_id"]))
-        {
-            $this->checkAdmin();
-            $this->uc->show(intval($_GET["user_id"]));
-        }
-        
-                                                    //Routes pour GESTION ARTICLES
-        
-        else if($route === "articles")
-        {
-            $this->arc->displayArticles();
-        }
-        else if($route === "articles" && isset($_GET["page"]))
-        {
-            $this->arc->displayArticles();
-        }
-        else if ($route === "articles" && isset($_GET["level"]))
-        {
-            $this->arc->displayArticles();
-        }
-        else
-        {
-            // le code si c'est aucun des cas précédents ( === page 404)
+            break;
+
+        case "admin-show-user":
+            if (isset($_GET["user_id"])) {
+                $this->checkAdmin();
+                $this->uc->show(intval($_GET["user_id"]));
+            }
+            break;
+
+        // Routes pour GESTION ARTICLES
+        case "articles":
+            if (isset($_GET["page"])) {
+                $this->arc->displayArticles();
+            } elseif (isset($_GET["level"])) {
+                $this->arc->displayArticles();
+            } elseif (isset($_GET["id"])) {
+                $this->arc->displayArticle();
+            } else {
+                $this->arc->displayArticles();
+            }
+            break;
+            
+        case "forum":
+            $this->fc->displayForum();
+            break;
+
+        // Page 404
+        default:
             $this->dc->notFound();
-        }
+            break;
     }
+}
+
 }

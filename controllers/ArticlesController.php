@@ -42,8 +42,10 @@ class ArticlesController extends AbstractController
         // Si le level est renseigné, nous affichons uniquement les articles ayant le niveau correspondant
         
         else {
+            $lm = new LevelsManager;
+            
             $level = $_GET['level'];
-            $levelName = $am->getLevelName($level);
+            $levelName = $lm->getLevelName($level);
             $total_articles = $am->getCountAllByLevel($level)['COUNT(*)'];
             $total_pages = ceil($total_articles / $articles_par_page);
             
@@ -58,5 +60,18 @@ class ArticlesController extends AbstractController
             'level_name'    => $levelName
         ]);
         }
+    }
+    
+    public function displayArticle() {
+        $am = new ArticlesManager;
+        
+        //Ré
+        $articleId = $_GET['id'];
+        
+        $article = $am->getArticleById($articleId);
+        
+        $this->render('front/articles/article.html.twig', [
+            'article'      => $article
+        ]);
     }
 }

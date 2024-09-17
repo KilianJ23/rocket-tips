@@ -529,6 +529,13 @@ main {
   text-align: center;
   /*flex: 1;*/
 }
+.section-articles .article-card:hover {
+  /*box-shadow: 0 8px 15px rgba(41, 180, 224, 0.5);*/
+  box-shadow: 0 0 4px #fff, inset 0 0 4px #fff, 0 0 8px #29B4E0, inset 0 0 8px #29B4E0, 0 0 16px #29B4E0, inset 0 0 16px #29B4E0;
+  transform: translateY(-5px);
+  cursor: pointer;
+  transition-duration: 0.6s;
+}
 .section-articles .article-card img {
   width: 100%;
   height: auto;
@@ -555,13 +562,6 @@ main {
 .section-articles .container-description p {
   font-size: 14px;
   color: #FFFFFF;
-}
-.section-articles .article-card:hover {
-  /*box-shadow: 0 8px 15px rgba(41, 180, 224, 0.5);*/
-  box-shadow: 0 0 4px #fff, inset 0 0 4px #fff, 0 0 8px #29B4E0, inset 0 0 8px #29B4E0, 0 0 16px #29B4E0, inset 0 0 16px #29B4E0;
-  transform: translateY(-5px);
-  cursor: pointer;
-  transition-duration: 0.8s;
 }
 .section-articles .pagination {
   display: flex;
@@ -612,6 +612,33 @@ main {
   }
 }
 
+#section-forum {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  text-align: center;
+  background-color: #18181C;
+  min-height: 90vh;
+  color: #FFFFFF;
+}
+#section-forum .container-forum {
+  padding: 2rem;
+  box-shadow: 0 0 4px #fff, inset 0 0 4px #fff, 0 0 8px #29B4E0, inset 0 0 8px #29B4E0, 0 0 16px #29B4E0, inset 0 0 16px #29B4E0;
+}
+#section-forum .container-forum h1 {
+  margin: 1em;
+}
+#section-forum .container-forum p {
+  margin: 1em;
+}
+#section-forum div {
+  margin: auto;
+}
+#section-forum img {
+  object-fit: cover;
+  max-width: 15rem;
+}
+
 .container-register {
   display: flex;
   flex-direction: column;
@@ -619,6 +646,13 @@ main {
   background-image: url("../../img/RLgrass.webp");
   background-size: cover;
   padding: 10px;
+}
+.container-register h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 15px;
+  font-size: 1.5rem;
+  color: #FFFFFF;
 }
 
 .register-form {
@@ -630,14 +664,6 @@ main {
   max-width: 400px;
   width: 100%;
   margin-bottom: 10px;
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  margin-top: 15px;
-  font-size: 1.5rem;
-  color: #FFFFFF;
 }
 
 fieldset {
@@ -749,6 +775,11 @@ fieldset {
     padding-top: 10px;
   }
 }
+html {
+  font-size: 62, 5%;
+  font-family: "Krona One";
+}
+
 main {
   min-height: 90vh;
 }

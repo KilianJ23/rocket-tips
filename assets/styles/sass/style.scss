@@ -4,9 +4,15 @@
 @import "_buttons";
 @import "_home";
 @import "_articles";
+@import "_forum";
 @import "_forms";
 @import "_footer";
 
+
+html {
+    font-size: 62,5%;
+    font-family: "Krona One";
+}
 
 main {
     min-height: 90vh;

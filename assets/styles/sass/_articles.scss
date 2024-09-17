@@ -33,11 +33,11 @@
             text-decoration: underline;
             color: $black;
         }
-    }
-    
-    .filter-btn:hover {
+        
+        &:hover {
         transform: translateY(-5px);
         cursor: pointer;
+        }
     }
     
     .container-gris {
@@ -80,6 +80,19 @@
         max-width: 300px; 
         text-align: center;
         /*flex: 1;*/
+        
+        &:hover {
+      /*box-shadow: 0 8px 15px rgba(41, 180, 224, 0.5);*/
+      box-shadow: 0 0 4px #fff,
+                inset 0 0 4px #fff,
+                0 0 8px $skyblue,
+                inset 0 0 8px $skyblue,
+                0 0 16px $skyblue,
+                inset 0 0 16px $skyblue;
+      transform: translateY(-5px);
+      cursor: pointer;
+      transition-duration: 0.6s;
+    }
     }
     
     .article-card img {
@@ -115,19 +128,6 @@
         }
     }
     
-    .article-card:hover {
-      /*box-shadow: 0 8px 15px rgba(41, 180, 224, 0.5);*/
-      box-shadow: 0 0 4px #fff,
-                inset 0 0 4px #fff,
-                0 0 8px $skyblue,
-                inset 0 0 8px $skyblue,
-                0 0 16px $skyblue,
-                inset 0 0 16px $skyblue;
-      transform: translateY(-5px);
-      cursor: pointer;
-      transition-duration: 0.8s;
-    }
-    
     .pagination {
         display: flex;
         justify-content: center;
@@ -148,10 +148,10 @@
         background-color: $skyblue; 
         border-radius: 5px;
         transition: background-color 0.3s ease;
-    }
-    
-    .pagination a:hover {
+        
+        &:hover {
         background-color: #2980b9; 
+    }
     }
     
     .pagination .active a {

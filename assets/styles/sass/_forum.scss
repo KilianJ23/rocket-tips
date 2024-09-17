@@ -1,0 +1,37 @@
+#section-forum {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    text-align: center;
+    background-color: $black;
+    min-height: 90vh;
+    color: $white;
+    
+    .container-forum {
+        padding: 2rem;
+        box-shadow: 0 0 4px #fff,
+                inset 0 0 4px #fff,
+                0 0 8px $skyblue,
+                inset 0 0 8px $skyblue,
+                0 0 16px $skyblue,
+                inset 0 0 16px $skyblue;
+                
+                h1 {
+                    margin: 1em;
+                }
+                
+                p {
+                    margin: 1em;
+                }
+    }
+    
+    div {
+        margin: auto;
+    }
+    
+    img {
+        object-fit: cover;
+        max-width: 15rem;
+    }
+    
+}
