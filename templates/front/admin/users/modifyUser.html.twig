@@ -1,0 +1,54 @@
+{% extends 'front/layout.html.twig' %}
+
+{% block title %}Modifier utilisateur{{ parent() }}{% endblock %}
+
+{% block main %}
+    <main class="container-grass">
+        <h1>Modifier un utilisateur</h1>
+        {% if session.error_message %}
+            <div class="error alert" role="alert">
+                {{ session.error_message }}
+            </div>
+        {% endif %}
+        {% if session.success_message %}
+            <div class="success alert" role="alert">
+                {{ session.success_message }}
+            </div>
+        {% endif %}
+        <form method="POST" action="index.php?route=applyModifs&id={{ user.id|e }}" class="user-admin-form">
+            <!-- Id -->
+            <div class="user-info">
+                <span>ID :</span>
+                <input type="number" name="id" id="id" value="{{ user.id|e }}" readonly="readonly">
+            </div>
+            <!-- Nom -->
+            <div class="user-info">
+                <span>Nom :</span>
+                <input type="text" name="name" id="name" value="{{ user.name|e }}">
+            </div>
+            <!-- Email -->
+            <div class="user-info">
+                <span>Email :</span>
+                <input type="email" name="email" id="email" value="{{ user.email|e }}">
+            </div>
+            <!-- Rôle -->
+            <div class="user-info">
+                <span>Rôle :</span>
+                <select name="role" id="role">
+                  <option value="{{ user.role|e }}">{{ user.role|e }}</option>
+                  {% if user.role == "ADMIN" %}
+                      <option value="USER">USER</option>
+                  {% endif %}
+                  {% if user.role != "ADMIN" %}
+                      <option value="ADMIN">ADMIN</option>
+                  {% endif %}
+                </select>
+            </div>
+                
+            <!-- Bouton de sauvegarde -->
+            <div class="container-submit">
+                <input type="submit" value="Sauvegarder les modifications" class="bouton-submit">
+            </div>
+        </form>
+    </main>
+{% endblock %}

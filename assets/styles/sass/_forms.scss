@@ -1,10 +1,13 @@
-.container-register {
+// FORMULAIRES DE CONNEXION ET INSCRIPTION
+
+.container-grass {
     display: flex;
     flex-direction: column;
     align-items: center;
     background-image: url("../../img/RLgrass.webp");
     background-size: cover;
     padding: 10px;
+    height: 94vh;
     
     h1 {
         text-align: center;
@@ -75,5 +78,42 @@ fieldset {
 
     .btn-primary {
         padding: 10px;
+    }
+}
+
+
+// FORMULAIRES DE MODIFICATION D'UTILISATEUR
+
+
+.user-admin-form {
+    background-color: $white;
+    opacity: 0.8;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.container-submit {
+    text-align: center;
+}
+
+.user-info {
+    
+    input {
+        all: unset;
+        color: $black;
+        cursor: pointer;
+        font: 16px system-ui;
+        height: 100%;
+        max-width: 70%;
+        padding: 6px 10px;
+        
+        &:focus {
+          cursor: text;
+          color: $darkgreen;
+        }
     }
 }

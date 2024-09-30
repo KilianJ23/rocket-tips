@@ -19,7 +19,7 @@
     <body class="container-all">
         
         {% block header %}
-            <header>
+            <header class="header">
                 <nav>
                     <a href="?route=home" class="nav-icon" aria-label="visit homepage" aria-current="page">
                         <img src="./assets/img/rltips-logo.webp" alt="Rocket Tips logo">
@@ -33,9 +33,14 @@
                             <span></span>
                         </button>
                         <div class="navlinks-container">
-                            <a href="?route=home" aria-current="page">Accueil</a>
+                            {% if not session.role == "ADMIN" %}
+                                <a href="?route=home" aria-current="page">Accueil</a>
+                            {% endif %}
                             <a href="?route=articles">Articles</a>
                             <a href="?route=forum">Forum</a>
+                            {% if session.role == "ADMIN" %}
+                                <a href="?route=dashboard">Dashboard</a>
+                            {% endif %}
                         </div>
                     </div>
                     
@@ -44,39 +49,16 @@
                           <img src="./assets/img/user.svg" alt="user icon" />
                         </a>
                         <div class="sign-btns">
-                          <a href="?route=inscription">Inscription</a>
-                          <a href="?route=connexion">Connexion</a>
+                            {% if not session.user is defined %}
+                                <a href="?route=inscription">Inscription</a>
+                                <a href="?route=connexion">Connexion</a>
+                            {% else %}
+                                <a href="?route=deconnexion">Déconnexion</a>
+                            {% endif %}
+                          
                         </div>
                     </div>
-                    
                 </nav>
-                <!--<div class="left-block-container">
-
-                    <nav id="navbar" class="nav-menu">
-                        <a id="logoRL" href="index.php">
-                            <img src="./assets/img/rltips-logo.webp" alt="Logo du site Rocket Tips">
-                        </a>
-                        
-                        <a href="index.html" class="lien-actif">Accueil</a>
-                        
-                        <a href="./second_pages/role.html">Articles</a>
-                        
-                        <a href="./second_pages/merch.html">Forum</a>
-                    </nav>
-                </div>
-                
-                <div class="right-block-container">
-                    <form role="search" id="search-form">
-      <input type="search" id="query" name="q" placeholder="Search..." aria-label="Search through site content">
-      <button>
-        <svg viewBox="0 0 1024 1024"><path class="path1" d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"></path></svg>
-      </button>
-    </form>
-                      <input class="bouton-bleu" type="button" value="SITE OFFICIEL" />
-                </div>
-                <!--<div class="burger-menu">
-                        <img src="./assets/img/burger-menu.png" alt=" burger menu icon" id="burger-icon" />
-                </div>-->
             </header>
         {% endblock %}
 
@@ -99,33 +81,18 @@
         
         {% block javascript %}
             <script type="application/javascript" src="assets/js/main.js"></script>
+            <script type="application/javascript" src="assets/js/pagination_articles.js"></script>
+            
             <script>
-      const f = document.getElementById('search-form');
-      const q = document.getElementById('query');
-      const google = 'https://www.google.com/search?q=site%3A+';
-      const site = 'pagedart.com';
-
-      function submitted(event) {
-        event.preventDefault();
-        const url = google + site + '+' + q.value;
-        const win = window.open(url, '_blank');
-        win.focus();
-      }
-
-      f.addEventListener('submit', submitted);
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          const burgerMenu = document.querySelector('.burger-menu');
-          const navMenu = document.querySelector('.nav-menu');
-    
-          burgerMenu.addEventListener('click', function() {
-            navMenu.classList.toggle('open');
-          });
-        });
-    </script>
-
+                document.addEventListener('DOMContentLoaded', function() {
+                  const burgerMenu = document.querySelector('.burger-menu');
+                  const navMenu = document.querySelector('.nav-menu');
+            
+                  burgerMenu.addEventListener('click', function() {
+                    navMenu.classList.toggle('open');
+                  });
+                });
+            </script>
         {% endblock %}
     </body>
 </html>

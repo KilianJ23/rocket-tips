@@ -141,21 +141,21 @@ class UserController extends AbstractController
         }
     }
 
-    public function delete(int $id) : void {
-        $this->um->deleteUser($id);
-        $_SESSION['success_message'] = "L'utilisateur a été supprimé";
-        $this->redirect('admin-list-users');
+    
+    // Method deleteUser() : Completely erases the user from the database
+    
+    public function deleteUser(): void
+    {
+        $userId = $_GET['id'];
+        $this->um->deleteUser($userId);
+        
+        $this->displayUsers();
     }
-
-    public function list() : void {
-        $users = $this->um->findAllUsers();
-
-        $this->render("admin/users/list.html.twig", [
-            "users" => $users
-        ]);
-    }
-
-    public function show(int $id) : void {
+    
+    // Method modifyUser() : Updates the data regarding a user in the database
+    
+    public function modifyUser(): void
+    {
         if(isset($_SESSION['error_message'])) {
             unset($_SESSION['error_message']);
         }
@@ -163,11 +163,28 @@ class UserController extends AbstractController
         if(isset($_SESSION['success_message'])) {
             unset($_SESSION['success_message']);
         }
-
-        $user = $this->um->findUserById($id);
-
-        $this->render("admin/users/show.html.twig", [
-            "user" => $user
-        ]);
+        
+        $id = $_GET['id'];
+        
+        if(isset($_POST['email']) && isset($_POST['name']) && isset($_POST['id']) && isset($_POST['role'])) {
+            $user = new User($_POST["name"], $_POST["email"], "password", $_POST["role"]);
+            $user->setId($_POST["id"]);
+            
+            $user2 = $this->um->findUserByEmail($_POST['email']);
+            
+            if($user2 === null) {
+                $this->um->updateUser($user);
+                $_SESSION['success_message'] = "L'utilisateur a bien été modifié";
+                $this->redirect("modifyUser&id=$id");
+            }
+            else {
+                $_SESSION['error_message'] = "Un utilisateur possède déjà cette adresse e-mail";
+                $this->redirect("modifyUser&id=$id");
+            }
+        }
+        else {
+                $_SESSION['error_message'] = "Tous les champs doivent être remplis";
+                $this->redirect("modifyUser&id=$id");
+            }
     }
 }

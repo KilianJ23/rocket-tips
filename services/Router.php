@@ -7,6 +7,8 @@ class Router {
     private AdminController $adc;
     private UserController $uc;
     private ArticlesController $arc;
+    private ForumController $fc;
+    private DashboardController $dbc;
 
     public function __construct() {
         $this->dc = new DefaultController();
@@ -15,6 +17,7 @@ class Router {
         $this->uc = new UserController();
         $this->arc = new ArticlesController();
         $this->fc = new ForumController();
+        $this->dbc = new DashboardController();
     }
 
     private function checkAdmin() : void {
@@ -122,10 +125,54 @@ class Router {
                 $this->arc->displayArticles();
             } elseif (isset($_GET["level"])) {
                 $this->arc->displayArticles();
-            } elseif (isset($_GET["id"])) {
-                $this->arc->displayArticle();
             } else {
                 $this->arc->displayArticles();
+            }
+            break;
+        
+        case "article":
+            if (isset($_GET["id"])) {
+                $this->arc->displayArticle();
+            }
+            break;
+        
+        // Routes du DASHBOARD ADMIN
+        
+        case "dashboard":
+            $this->dbc->displayDashboard();
+            break;
+        
+        // Pour USERS
+        
+        case "allUsers":
+            $this->dbc->displayUsers();
+            break;
+            
+        case "modifyUser":
+            if (isset($_GET["id"])) {
+                $this->dbc->displayUser();
+            }
+            break;
+        
+        case "applyModifs":
+                $this->uc->modifyUser();
+            break;
+            
+        case "deleteUser":
+            if (isset($_GET["id"])) {
+                $this->uc->deleteUser();
+            }
+            break;
+        
+        // Pour ARTICLES
+        
+        case "manageArticles":
+            $this->arc->displayManageArticles();
+            break;
+            
+        case "modifyArticle":
+            if (isset($_GET["id"])) {
+                $this->arc->modifyArticle();
             }
             break;
             

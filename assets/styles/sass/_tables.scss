@@ -1,0 +1,17 @@
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    @include table-styles();
+
+        th,td {
+            text-align: center;
+        }
+}
+
+
+h1 {
+    @include heading-style(26px, 'Krona One',  20px, 15px, $black, bold, uppercase, 1.2, center, none);
+}

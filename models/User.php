@@ -4,11 +4,12 @@ class User
 {
     private ? int $id = null;
 
-    public function __construct(private string $email, private string $name, private string $password, private string $role = "USER")
+    public function __construct(private string $email, private string $name, private string $password, private string $role)
     {
 
     }
 
+                                            // Getters and Setters
     
     public function getId(): ?int
     {

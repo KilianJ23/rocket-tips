@@ -1,4 +1,46 @@
 @charset "UTF-8";
+/**
+  * Mixin to style tables with customizable options.
+  *
+  * @param {String} $border-color         - The color of the table borders.
+  * @param {String} $header-bg-color      - The background color of the table headers.
+  * @param {String} $header-text-color    - The text color of the table headers.
+  * @param {String} $row-hover-bg-color   - The background color of table rows on hover.
+  * @param {String} $striped-row-bg-color - The background color of striped table rows.
+  * @param {String} $text-color           - The text color of the table cells.
+  * @param {String} $padding              - The padding inside table cells.
+  * @param {String} $border-width         - The width of the table borders.
+  * @param {String} $border-style         - The style of the table borders.
+  *
+  * Use:
+  *   @include table-styles();
+*/
+/**
+ * Mixin to style all heading levels (h1, h2, h3, h4, h5, h6) and label with customizable options.
+ *
+ * @param {String|Number} $font-size      - The font size of the heading text.
+ * @param {String}        $font-family    - The font-family of the heading text.
+ * @param {String|Number} $margin-top     - The top margin of the heading.
+ * @param {String|Number} $margin-bottom  - The bottom margin of the heading.
+ * @param {String}        $color          - The color of the heading text.
+ * @param {String}        $font-weight    - The font weight of the heading text.
+ * @param {String}        $text-transform - The text transformation (uppercase, lowercase, capitalize, small-caps, none).
+ * @param {String}        $line-height    - The line height of the heading text.
+ * @param {String}        $text-align     - The text alignment (left, center, right, justify, justify-all, start, end).
+ * @param {String}        $text-decor     - The text decoration (none, underline, overline, line-through, blink).
+
+ *
+ * Use:
+ *    @include heading-style(36px, 'Krona One',  20px, 15px, $black, bold, uppercase, 1.2, center, none);
+ */
+/**
+ * Mixin to style buttons based on their type.
+ *
+ * @param {String} $type - The type of button, can be 'danger', 'warning', 'validate', or other.
+ *
+ * Use:
+ *   @include button-styles('danger');
+ */
 *,
 ::before,
 ::after {
@@ -7,7 +49,7 @@
   padding: 0;
 }
 
-header {
+.header {
   font-family: "Krona One";
   background-color: #000000;
   position: relative;
@@ -202,7 +244,7 @@ header nav #titre-logo {
     background-color: #333333;
     padding: 0.5rem;
     border-radius: 10px;
-    width: 300px;
+    width: 100%;
     text-align: center;
   }
   .navlinks-container a:hover::after {
@@ -258,6 +300,7 @@ header nav #titre-logo {
 }
 
 .bouton-bleu {
+  all: unset;
   background-color: #29B4E0;
   font-family: "Krona One";
   font-size: 0.7rem;
@@ -265,45 +308,12 @@ header nav #titre-logo {
   border-radius: 10px;
   width: 30%;
   text-align: center;
-}
-
-#search-form {
-  background-color: #29B4E0;
-  width: 50%;
-  /*height: 44px;*/
-  border-radius: 5px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-input {
-  all: unset;
-  font: 16px system-ui;
-  color: #fff;
-  height: 100%;
-  width: 70%;
+  cursor: pointer;
   padding: 6px 10px;
 }
-
-::placeholder {
-  color: #fff;
-  opacity: 0.7;
-}
-
-svg {
-  color: #fff;
-  fill: currentColor;
-  width: 24px;
-  height: 24px;
-  padding: 0px;
-}
-
-button {
-  all: unset;
-  cursor: pointer;
-  width: 44px;
-  height: 44px;
+.bouton-bleu:hover {
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  transform: translateY(-5px);
 }
 
 .register-btn {
@@ -317,6 +327,22 @@ button {
   cursor: pointer;
   text-align: center;
   width: 80%;
+}
+
+.bouton-submit {
+  all: unset;
+  background-color: #29B4E0;
+  font-family: "Krona One";
+  font-size: 0.7rem;
+  color: #FFFFFF;
+  border-radius: 10px;
+  width: 60%;
+  text-align: center;
+  padding: 5px 8px;
+  margin-top: 2em;
+}
+.bouton-submit:hover {
+  cursor: pointer;
 }
 
 main {
@@ -366,6 +392,7 @@ main {
 
 #welcome-text h1 {
   font-size: clamp(1rem, 2.5vw, 3rem);
+  color: #FFFFFF;
 }
 
 #welcome-text p {
@@ -483,6 +510,7 @@ main {
   display: flex;
   justify-content: space-evenly;
   margin: 5px;
+  font-size: clamp(0.8rem, 2.5vw, 1.1rem);
 }
 .section-articles .filter-btn {
   display: flex;
@@ -612,6 +640,30 @@ main {
   }
 }
 
+.dashboard section {
+  min-height: 87vh;
+}
+.dashboard section a {
+  display: block;
+  font-family: "Krona One", Arial;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  border-radius: 10px;
+  padding: 12px 20px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+  background-color: #2E8B57;
+  color: #FFFFFF;
+  border: 1px solid white;
+  margin-bottom: 20px;
+}
+.dashboard section a:hover {
+  background-color: #FFFFFF;
+  color: green;
+}
+
 #section-forum {
   display: flex;
   flex-direction: column;
@@ -627,6 +679,7 @@ main {
 }
 #section-forum .container-forum h1 {
   margin: 1em;
+  color: #FFFFFF;
 }
 #section-forum .container-forum p {
   margin: 1em;
@@ -639,15 +692,66 @@ main {
   max-width: 15rem;
 }
 
-.container-register {
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  background-color: #FFFFFF;
+  font-family: "Krona One", Arial;
+  border-collapse: collapse;
+  color: #18181C;
+  table-layout: auto;
+  border-collapse: collapse;
+}
+table th, table td {
+  border: 1px solid #18181C;
+  padding: 8px;
+  text-align: left;
+}
+table th {
+  background-color: #047ea5;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+table tr:nth-child(odd) {
+  background-color: #FFFFFF;
+}
+table tr:nth-child(even) {
+  background-color: #D9D9D9;
+}
+table tr:hover {
+  background-color: #29B4E0;
+}
+table th, table td {
+  text-align: center;
+}
+
+h1 {
+  font-size: 26px;
+  font-family: "Krona One", Arial;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  color: #18181C;
+  font-weight: bold;
+  text-transform: uppercase;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+}
+
+.container-grass {
   display: flex;
   flex-direction: column;
   align-items: center;
   background-image: url("../../img/RLgrass.webp");
   background-size: cover;
   padding: 10px;
+  height: 94vh;
 }
-.container-register h1 {
+.container-grass h1 {
   text-align: center;
   margin-bottom: 20px;
   margin-top: 15px;
@@ -715,6 +819,35 @@ fieldset {
     padding: 10px;
   }
 }
+.user-admin-form {
+  background-color: #FFFFFF;
+  opacity: 0.8;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.container-submit {
+  text-align: center;
+}
+
+.user-info input {
+  all: unset;
+  color: #18181C;
+  cursor: pointer;
+  font: 16px system-ui;
+  height: 100%;
+  max-width: 70%;
+  padding: 6px 10px;
+}
+.user-info input:focus {
+  cursor: text;
+  color: #095500;
+}
+
 .footer {
   display: flex;
   justify-content: space-between;
@@ -781,7 +914,7 @@ html {
 }
 
 main {
-  min-height: 90vh;
+  min-height: 94vh;
 }
 
 /*# sourceMappingURL=style.css.map */

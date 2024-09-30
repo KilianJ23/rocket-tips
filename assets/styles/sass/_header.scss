@@ -7,7 +7,7 @@
   padding: 0;
 }
 
-header {
+.header {
   font-family: "Krona One";
   background-color: #000000;
   position: relative;
@@ -215,7 +215,7 @@ header nav {
     background-color: $darkgrey;
     padding: 0.5rem;
     border-radius: 10px;
-    width: 300px;
+    width: 100%;
     text-align: center;
   }
   

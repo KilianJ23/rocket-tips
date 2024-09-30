@@ -1,10 +1,14 @@
-@import "_varsColors.scss";
+@import "_varsColors";
+@import "_mixins";
 @import "_header";
 @import "_messages";
 @import "_buttons";
 @import "_home";
 @import "_articles";
+@import "_dashboard";
+@import "_modifyUser";
 @import "_forum";
+@import "_tables";
 @import "_forms";
 @import "_footer";
 
@@ -15,5 +19,5 @@ html {
 }
 
 main {
-    min-height: 90vh;
+    min-height: 94vh;
 }

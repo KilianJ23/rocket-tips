@@ -1,0 +1,10 @@
+.dashboard {
+    
+    section {
+        min-height: 87vh;
+        
+        a {
+            @include button-styles('dashboard');
+        }
+    }
+}

@@ -44,7 +44,7 @@ class ArticlesManager extends AbstractManager {
         $result = $query->fetch(PDO::FETCH_ASSOC);
 
         if ($result) {
-            $article = new Article($result["title"], $result["content"], $result["publish_date"], $result["level"]);
+            $article = new Article($result["title"], $result["content"], $result["publish_date"], $result["level"], $result["description"]);
 
             return $article;
         }
@@ -101,5 +101,27 @@ class ArticlesManager extends AbstractManager {
         $query->execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
+    }
+    
+    // Method to fetch an article from his ID
+    
+    public function getArticleById(int $id): Article {
+        $query = $this->db->prepare('SELECT * FROM articles WHERE id=:id');
+
+        $parameters = [
+            "id" => $id
+        ];
+
+        $query->execute($parameters);
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+
+        if ($result) {
+            $article = new Article($result["title"], $result["content"], $result["publish_date"], $result["level"], $result["description"]);
+
+            return $article;
+        }
+        else {
+            return null;
+        }
     }
 }

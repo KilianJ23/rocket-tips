@@ -1,54 +1,23 @@
 
 .bouton-bleu {
+    all: unset;
     background-color: #29B4E0;
     font-family: "Krona One";
     font-size: 0.7rem;
-    color: #FFFFFF;
+    color: $white;
     border-radius: 10px;
     width: 30%;
     text-align: center;
+    cursor: pointer;
+    padding: 6px 10px;
+    
+    &:hover {
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+      transform: translateY(-5px);
+  }
 }
 
-#search-form {
-        background-color: #29B4E0;
-        width: 50%;
-        /*height: 44px;*/
-        border-radius: 5px;
-        display:flex;
-        flex-direction:row;
-        align-items:center;
-      }
-
-      input {
-        all: unset;
-        font: 16px system-ui;
-        color: #fff;
-        height: 100%;
-        width: 70%;
-        padding: 6px 10px;
-      }
-
-      ::placeholder {
-        color: #fff;
-        opacity: 0.7; 
-      }
-
-      svg {
-        color: #fff;
-        fill: currentColor;
-        width: 24px;
-        height: 24px;
-        padding: 0px;
-      }
-
-      button {
-        all: unset;
-        cursor: pointer;
-        width: 44px;
-        height: 44px;
-      }
-
-//LOGIN & REGISTER button
+// LOGIN & REGISTER button
 
 .register-btn {
     display: inline-block;
@@ -61,4 +30,23 @@
     cursor: pointer;
     text-align: center;
     width: 80%;
+}
+
+// SUBMIT button
+
+.bouton-submit {
+        all: unset;
+        background-color: $skyblue;
+        font-family: "Krona One";
+        font-size: 0.7rem;
+        color: $white;
+        border-radius: 10px;
+        width: 60%;
+        text-align: center;
+        padding: 5px 8px;
+        margin-top: 2em;
+        
+        &:hover {
+            cursor: pointer;
+        }
 }

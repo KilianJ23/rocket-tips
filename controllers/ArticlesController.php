@@ -9,18 +9,18 @@ class ArticlesController extends AbstractController
         $this->um = new UserManager();
     }
 
-    //Méthode de displayArticles() : Affiche la page globale des articles.
+    //Method displayArticles() : Displays the page with all the articles
 
     public function displayArticles() {
         $am = new ArticlesManager;
         
-        // Calcul du nombre de pages total, on peut jouer sur le paramètre $articles_par_page pour choisir le nombre d'articles à afficher
+        // Calculating the total number of pages, we can adjust the parameter $articles_par_page to choose the number of articles to display
         
         $articles_par_page = 6;
         $page_actuelle = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
         $offset = ($page_actuelle - 1) * $articles_par_page;
         
-        // Si le level de difficulté n'est pas sélectionné nous affichons les articles de tous niveaux
+        // If no difficulty level is selected we display articles of all levels
         
         if (!isset($_GET['level'])) {
         
@@ -39,7 +39,7 @@ class ArticlesController extends AbstractController
         
         }
         
-        // Si le level est renseigné, nous affichons uniquement les articles ayant le niveau correspondant
+        // If the level is set, then we only display the articles with the matching level
         
         else {
             $lm = new LevelsManager;
@@ -62,6 +62,9 @@ class ArticlesController extends AbstractController
         }
     }
     
+    
+    // Method to display a single article
+    
     public function displayArticle() {
         $am = new ArticlesManager;
         
@@ -73,5 +76,15 @@ class ArticlesController extends AbstractController
         $this->render('front/articles/article.html.twig', [
             'article'      => $article
         ]);
+    }
+    
+    // Method to display all articles in the admin panel
+    
+    public function displayManageArticles() {
+        $am = new ArticlesManager();
+        $articles = $am->getAll();
+        
+        $this->render('front/admin/articles/allArticles.html.twig', [
+            "articles" => $articles]);
     }
 }

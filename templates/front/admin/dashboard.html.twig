@@ -1,0 +1,17 @@
+{% extends 'front/layout.html.twig' %}
+
+{% block title %}Dashboard{{ parent() }}{% endblock %}
+
+{% block main %}
+    <main class="dashboard">
+        <section class="container-grass">
+            <h1>Panneau d'administration</h1>
+        
+            <a href="?route=allUsers" type="button">Gestion des utilisateurs</a>
+            
+            <a href="?route=manageArticles" type="button">Gestion des articles</a>
+            
+            <a href="?route=forum" type="button">Gestion du forum</a>
+        </section>
+    </main>
+{% endblock %}

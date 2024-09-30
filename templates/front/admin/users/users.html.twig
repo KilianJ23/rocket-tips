@@ -1,0 +1,35 @@
+{% extends 'front/layout.html.twig' %}
+
+{% block title %}Administration des utilisateurs{{ parent() }}{% endblock %}
+
+{% block main %}
+    <main class="container-grass">
+        <h1>Administration des utilisateurs</h1>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Email</th>
+                            <th>Nom</th>
+                            <th>Rôle</th>
+                            <th colspan="2">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td>{{ user.id|e }}</td>
+                                <td>{{ user.email|e }}</td>
+                                <td>{{ user.name|e }}</td>
+                                <td>{{ user.role|e }}</td>
+                                <td><a href="?route=modifyUser&id={{ user.id|e }}">Modifier</a></td>
+                                <td><a href="?route=deleteUser&id={{ user.id|e }}">Supprimer</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+    </main>
+{% endblock %}

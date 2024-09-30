@@ -1,0 +1,164 @@
+/**
+  * Mixin to style tables with customizable options.
+  *
+  * @param {String} $border-color         - The color of the table borders.
+  * @param {String} $header-bg-color      - The background color of the table headers.
+  * @param {String} $header-text-color    - The text color of the table headers.
+  * @param {String} $row-hover-bg-color   - The background color of table rows on hover.
+  * @param {String} $striped-row-bg-color - The background color of striped table rows.
+  * @param {String} $text-color           - The text color of the table cells.
+  * @param {String} $padding              - The padding inside table cells.
+  * @param {String} $border-width         - The width of the table borders.
+  * @param {String} $border-style         - The style of the table borders.
+  *
+  * Use:
+  *   @include table-styles();
+*/
+@mixin table-styles($border-color: $black, $header-bg-color: $darkblue, $header-text-color: $white, $row-hover-bg-color: $skyblue, $normal-row-bg-color: $white, $striped-row-bg-color: $lightgrey, $text-color: $black, $padding: 8px, $border-width: 1px, $border-style: solid) {
+  width: 100%;
+  background-color: $white;
+  font-family: 'Krona One', Arial;
+  border-collapse: collapse;
+  color: $text-color;
+  table-layout: auto;
+  border-collapse: collapse;
+
+  th, td {
+    border: $border-width $border-style $border-color;
+    padding: $padding;
+    text-align: left;
+  }
+
+  th {
+    background-color: $header-bg-color;
+    color: $header-text-color;
+    font-weight: bold;
+  }
+
+  tr:nth-child(odd) {
+    background-color: $normal-row-bg-color;
+  }
+
+  tr:nth-child(even) {
+    background-color: $striped-row-bg-color;
+  }
+
+  tr:hover {
+    background-color: $row-hover-bg-color;
+  }
+}
+
+/**
+ * Mixin to style all heading levels (h1, h2, h3, h4, h5, h6) and label with customizable options.
+ *
+ * @param {String|Number} $font-size      - The font size of the heading text.
+ * @param {String}        $font-family    - The font-family of the heading text.
+ * @param {String|Number} $margin-top     - The top margin of the heading.
+ * @param {String|Number} $margin-bottom  - The bottom margin of the heading.
+ * @param {String}        $color          - The color of the heading text.
+ * @param {String}        $font-weight    - The font weight of the heading text.
+ * @param {String}        $text-transform - The text transformation (uppercase, lowercase, capitalize, small-caps, none).
+ * @param {String}        $line-height    - The line height of the heading text.
+ * @param {String}        $text-align     - The text alignment (left, center, right, justify, justify-all, start, end).
+ * @param {String}        $text-decor     - The text decoration (none, underline, overline, line-through, blink).
+
+ *
+ * Use:
+ *    @include heading-style(36px, 'Krona One',  20px, 15px, $black, bold, uppercase, 1.2, center, none);
+ */
+
+ @mixin heading-style($font-size: 24px, $font-family: 'Krona One', $margin-top: 10px, $margin-bottom: 10px, $color: $black, $font-weight: normal, $text-transform: none,  $line-height: 1.4, $text-align: left, $text-decor: none) {  
+  font-size       : $font-size;
+  font-family     : $font-family, Arial;
+  margin-top      : $margin-top;
+  margin-bottom   : $margin-bottom;
+  color           : $color;
+  font-weight     : $font-weight;
+  text-transform  : $text-transform;
+  line-height     : $line-height;
+  text-align      : $text-align;
+  text-decoration : $text-decor;  
+}
+
+
+
+/**
+ * Mixin to style buttons based on their type.
+ *
+ * @param {String} $type - The type of button, can be 'danger', 'warning', 'validate', or other.
+ *
+ * Use:
+ *   @include button-styles('danger');
+ */
+@mixin button-styles($type) {
+
+  display: block;
+  font-family: 'Krona One', Arial;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  border-radius: 10px;
+  padding: 12px 20px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+
+
+  @if $type == 'danger' {
+    background-color: $red;
+    color: $white;
+    border: 1px solid $red;
+
+    &:hover {
+      background-color: $white;
+      color: $red;
+    }
+  } @else if $type == 'warning' {
+    background-color: $bright_yarrow;
+    color: $white;
+    border: 1px solid $bright_yarrow;
+
+    &:hover {
+      background-color: $white;
+      color: $bright_yarrow;
+    }
+  } @else if $type == 'dashboard' {
+    background-color: $seagreen;
+    color: $white;
+    border: 1px solid white;
+    margin-bottom: 20px;
+
+    &:hover {
+      background-color: $white;
+      color: green;
+    }
+  } @else if $type == 'validate' { 
+    background-color: $mint_feaf;
+    color: $white;
+    border: 1px solid $mint_feaf;
+
+    &:hover {
+      background-color: $white;
+      color: $mint_feaf;
+    } 
+  }@else if $type == 'reject' { 
+      background-color: $pink_Glamour;
+      color: $white;
+      border: 1px solid $mint_feaf;
+
+    &:hover {
+      background-color: $white;
+      color: $mint_feaf;
+    }
+  } @else {
+    background-color: $electron_Blue; // Default color
+    color: $white;
+    border: 1px solid $electron_Blue;
+
+    &:hover {
+      background-color: $white;
+      color: $electron_Blue;
+      // background-color: darken($electron_Blue, 10%);
+    }
+  }
+}
