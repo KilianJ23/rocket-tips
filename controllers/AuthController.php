@@ -13,7 +13,7 @@ class AuthController extends AbstractController
 
     public function displayRegister() : void
     {
-        $this->render('front/register.html.twig', []);
+        $this->render('front/register.html.twig', [], []);
         
         if(isset($_SESSION['error_message'])) {
             unset($_SESSION['error_message']);
@@ -121,7 +121,7 @@ class AuthController extends AbstractController
     
     public function login() : void
     {
-        $this->render('front/login.html.twig', []);
+        $this->render('front/login.html.twig', [], []);
         
         if(isset($_SESSION['error_message'])) {
             unset($_SESSION['error_message']);

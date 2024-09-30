@@ -75,7 +75,7 @@ class ArticlesController extends AbstractController
         
         $this->render('front/articles/article.html.twig', [
             'article'      => $article
-        ]);
+        ], []);
     }
     
     // Method to display all articles in the admin panel
@@ -85,6 +85,6 @@ class ArticlesController extends AbstractController
         $articles = $am->getAll();
         
         $this->render('front/admin/articles/allArticles.html.twig', [
-            "articles" => $articles]);
+            "articles" => $articles], []);
     }
 }

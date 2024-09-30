@@ -13,7 +13,7 @@ class ForumController extends AbstractController
 
     public function displayForum() {
         
-        $this->render('front/forum/forum.html.twig', []);
+        $this->render('front/forum/forum.html.twig', [], []);
         
     }
 }

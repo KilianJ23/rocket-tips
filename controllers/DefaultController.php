@@ -9,11 +9,11 @@ class DefaultController extends AbstractController
 
     public function homepage() : void
     {
-        $this->render('front/home.html.twig', []);
+        $this->render('front/home.html.twig', [], []);
     }
     
     public function notFound() : void
     {
-        $this->render('front/error404.html.twig', []);
+        $this->render('front/error404.html.twig', [], []);
     }
 }

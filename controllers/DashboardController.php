@@ -14,7 +14,7 @@ class DashboardController extends AbstractController
 
     public function displayDashboard() 
     {
-        $this->render('front/admin/dashboard.html.twig', []);
+        $this->render('front/admin/dashboard.html.twig', [], []);
     }
     
     // Method displayUsers() : Shows all the users
@@ -25,7 +25,7 @@ class DashboardController extends AbstractController
         $users = $this->um->getAllUsers();
         
         $this->render('front/admin/users/users.html.twig', [
-            "users" => $users]);
+            "users" => $users], []);
     }
     
     // Method displayUser() : Shows the information of a single user
@@ -37,7 +37,7 @@ class DashboardController extends AbstractController
         
         $this->render('front/admin/users/modifyUser.html.twig', [
             'user'      => $user
-        ]);
+        ], []);
         
         if(isset($_SESSION['error_message'])) {
             unset($_SESSION['error_message']);

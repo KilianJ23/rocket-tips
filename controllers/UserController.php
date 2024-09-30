@@ -9,7 +9,7 @@ class UserController extends AbstractController
     }
 
     public function create() : void {
-        $this->render("admin/users/create.html.twig", []);
+        $this->render("admin/users/create.html.twig", [], []);
     }
 
     public function checkCreate() : void {
@@ -77,7 +77,7 @@ class UserController extends AbstractController
 
         $this->render("admin/users/edit.html.twig", [
             "user" => $user
-        ]);
+        ], []);
     }
 
     public function checkEdit(int $id) : void {
