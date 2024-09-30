@@ -13,7 +13,7 @@ class ArticlesController extends AbstractController
 
     public function displayArticles() {
         $am = new ArticlesManager;
-        
+        $scripts = ['assets/js/pagination_articles.js'];
         // Calculating the total number of pages, we can adjust the parameter $articles_par_page to choose the number of articles to display
         
         $articles_par_page = 6;
@@ -35,7 +35,7 @@ class ArticlesController extends AbstractController
             'articles'      => $articles,
             'page_actuelle' => $page_actuelle,
             'total_pages'   => $total_pages,
-        ]);
+        ], $scripts);
         
         }
         
@@ -58,7 +58,7 @@ class ArticlesController extends AbstractController
             'total_pages'   => $total_pages,
             'level'         => $level,
             'level_name'    => $levelName
-        ]);
+        ], $scripts);
         }
     }
     

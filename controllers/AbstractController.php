@@ -16,8 +16,10 @@ abstract class AbstractController
         $this->twig = $twig;
     }
 
-    protected function render(string $template, array $data) : void
+    protected function render(string $template, array $data = [], array $scripts) : void
     {
+        $data['scripts'] = $scripts;
+        
         echo $this->twig->render($template, $data);
     }
 

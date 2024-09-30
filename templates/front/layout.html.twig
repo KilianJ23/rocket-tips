@@ -81,18 +81,11 @@
         
         {% block javascript %}
             <script type="application/javascript" src="assets/js/main.js"></script>
-            <script type="application/javascript" src="assets/js/pagination_articles.js"></script>
-            
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                  const burgerMenu = document.querySelector('.burger-menu');
-                  const navMenu = document.querySelector('.nav-menu');
-            
-                  burgerMenu.addEventListener('click', function() {
-                    navMenu.classList.toggle('open');
-                  });
-                });
-            </script>
+            {% if scripts is defined %}
+                {% for script in scripts %}
+                    <script src="{{ script }}"></script>
+                {% endfor %}
+            {% endif %}
         {% endblock %}
     </body>
 </html>
