@@ -176,6 +176,11 @@ class Router {
                 $this->arc->displayModifyArticle();
             }
             break;
+        case "applyArticleModifs":
+            if (isset($_GET["id"])) {
+                $this->arc->modifyArticle();
+            }
+            break;
             
         case "forum":
             $this->fc->displayForum();

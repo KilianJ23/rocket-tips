@@ -215,10 +215,6 @@ class UserController extends AbstractController
                 $this->redirect("showUser&id=$id");
             }
         }
-        else {
-            $_SESSION['error_message'] = "Tous les champs doivent être remplis";
-            $this->redirect("showUser&id=$id");
-        }
     }
 }
 

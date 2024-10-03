@@ -119,56 +119,42 @@ class ArticlesController extends AbstractController
         if(isset($_POST['title']) && isset($_POST['content']) && isset($_POST['publish_date']) && isset($_POST['level']) && isset($_POST['csrf_token']) && isset($_POST['description'])) {
             
             $data = [
-                'title'  => ucfirst(trim($_POST['name'])),           // Removing unnecessary spaces and uppercasing the first letter of the firstname, the rest in lowercase.           
-                'content' => strtolower(trim($_POST['email'])),       // Removing unnecessary spaces and lowering the email
-                'publish_date'    => trim($_POST['id']),                      // Removing unnecessary spaces in the id
-                'level'  => $_POST['role'],
-                'description'  => $_POST['role']
+                'title'  => ucfirst(trim($_POST['title'])),           // Removing unnecessary spaces and uppercasing the first letter of the firstname, the rest in lowercase.           
+                'content' => strip_tags($_POST['content'], '<p><br><strong>'),       // Removing unnecessary spaces and lowering the email
+                'publish_date'    => trim($_POST['publish_date']),                      // Removing unnecessary spaces in the id
+                'level'  => $_POST['level'],
+                'description'  => $_POST['description'],
+                'id' => $_GET['id']
             ];
             
             if(empty($data['title']) || empty($data['content']) || empty($data['publish_date']) || empty($data['level']) || empty($data['description']) ){
                 $_SESSION['error_message'] = "Tous les champs doivent être remplis";
-                $this->redirect("displayModifyArticle&id=$id");
+                $this->redirect("modifyArticle&id=$id");
             }
             $tm = new CSRFTokenManager();
 
             if($tm->validateCSRFToken($_POST['csrf_token'])) {
             
-                $article = new Article($data["title"], $data["content"], "password", $data["role"]);
+                $article = new Article($data["title"], $data["content"], $data["publish_date"], $data["level"], $data["description"]);
                 $article->setId($data["id"]);
                 
-                $user2 = $this->um->findUserByEmail($data['email']);
+                // TO DO : GESTION DE L'IMAGE
                 
-                
-                if(($user2 === null) || $user2->getId() === $user->getId()) {
-                    
-                    $user3 = $this->um->findUserByName($data['name']);
-                    
-                    if(($user3 === null) || $user3->getId() === $user->getId()) {
-                    
-                    $this->um->updateUser($user);
-                    $_SESSION['success_message'] = "L'utilisateur a bien été modifié";
-                    $this->redirect("showUser&id=$id");
-                    }
-                    
-                    else {
-                    $_SESSION['error_message'] = "Un utilisateur possède déjà ce nom";
-                    $this->redirect("showUser&id=$id");
-                    }
+                if(strlen($data['title']) > 255){
+                    $_SESSION['error_message'] = "Le titre ne peut pas faire plus de 255 caractères";
+                    $this->redirect("modifyArticle&id=$id");
                 }
-                else {
-                    $_SESSION['error_message'] = "Un utilisateur possède déjà cette adresse e-mail";
-                    $this->redirect("showUser&id=$id");
+                
+                if(strlen($data['description']) > 255){
+                    $_SESSION['error_message'] = "La description ne peut pas faire plus de 255 caractères";
+                    $this->redirect("modifyArticle&id=$id");
                 }
             }
+                    
             else {
                 $_SESSION['error_message'] = "Le jeton CSRF est invalide.";
-                $this->redirect("showUser&id=$id");
+                $this->redirect("modifyArticle&id=$id");
             }
-        }
-        else {
-            $_SESSION['error_message'] = "Tous les champs doivent être remplis";
-            $this->redirect("showUser&id=$id");
         }
     }
 }
