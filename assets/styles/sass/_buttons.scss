@@ -32,9 +32,9 @@
     width: 80%;
 }
 
-// SUBMIT button
+// SUBMIT MODIFS button
 
-.bouton-submit {
+/*.bouton-submit {
         all: unset;
         background-color: $skyblue;
         font-family: "Krona One";
@@ -49,4 +49,21 @@
         &:hover {
             cursor: pointer;
         }
+}*/
+
+.bouton-submit {
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #fff;
+    background-color: $skyblue;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 1em;
+    opacity: 1;
+    
+    &:hover {
+    background-color: $darkblue;
+    }
 }

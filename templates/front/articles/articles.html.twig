@@ -25,23 +25,24 @@
         <section class="container-gris">
             <div class="container-articles">
                 {% if not level is defined %}
-                                    <h2>Nos derniers articles</h2>
-                                {% else %}
-                                    <h2>Nos derniers articles - niveau {{ level_name|upper }}</h2>
-                                {% endif %}
+                    <h2>Nos derniers articles</h2>
+                {% else %}
+                    <h2>Nos derniers articles - niveau {{ level_name|upper }}</h2>
+                {% endif %}
+                                
                 <div class="container-article-cards">
                     
                 {% for article in articles %}
                     
-                    <div class="article-card">
-                        <img src="./assets/img/half-flip.webp" alt="Article sur {{ article.title }}">
-                        <div class="container-description">
-                            <a href="?route=article&id={{ article.id }}">
+                    <a href="?route=article&id={{ article.id }}">
+                        <div class="article-card">
+                            <img src="./assets/img/half-flip.webp" alt="Article sur {{ article.title }}">
+                            <div class="container-description">
                                 <h3>{{ article.title }}</h3>
-                            </a>
-                            <p>{{ article.description }}</p>
+                                <p>{{ article.description }}</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                     
                 {% endfor %}
                     

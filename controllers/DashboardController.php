@@ -21,7 +21,7 @@ class DashboardController extends AbstractController
     
     public function displayUsers() 
     {
-        $um = new UserManager();
+        $um = new UserManager();                    // LIGNE INUTILE
         $users = $this->um->getAllUsers();
         
         $this->render('front/admin/users/users.html.twig', [

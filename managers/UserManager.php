@@ -58,7 +58,7 @@ class UserManager extends AbstractManager {
     }
     
     
-    // Method to find a user - returns a user
+    // Method to find a user from his Email - returns a user
     
      public function findUserByEmail(string $email): ?User
     {
@@ -66,6 +66,30 @@ class UserManager extends AbstractManager {
 
         $parameters = [
             "email" => $email
+        ];
+
+        $query->execute($parameters);
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+
+        if ($result) {
+            $user = new User($result["name"], $result["email"], $result["password"], $result["role"]);
+            $user->setId($result["id"]);
+
+            return $user;
+        }
+        else {
+            return null;
+        }
+    }
+    
+    // Method to find a user from his Name - returns a user
+    
+     public function findUserByName(string $name): ?User
+    {
+        $query = $this->db->prepare('SELECT * FROM users WHERE name=:name');
+
+        $parameters = [
+            "name" => $name
         ];
 
         $query->execute($parameters);

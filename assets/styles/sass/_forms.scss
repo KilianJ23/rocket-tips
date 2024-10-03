@@ -7,7 +7,8 @@
     background-image: url("../../img/RLgrass.webp");
     background-size: cover;
     padding: 10px;
-    height: 94vh;
+    min-height: 94vh;
+    background-position: center;
     
     h1 {
         text-align: center;
@@ -82,12 +83,12 @@ fieldset {
 }
 
 
-// FORMULAIRES DE MODIFICATION D'UTILISATEUR
+// FORMULAIRE DE MODIFICATION D'UTILISATEUR
 
 
 .user-admin-form {
     background-color: $white;
-    opacity: 0.8;
+    opacity: 0.9;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
@@ -117,3 +118,70 @@ fieldset {
         }
     }
 }
+
+
+// FORMULAIRE DE REDACTION D'ARTICLE
+
+.article-admin-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 800px; /* Augmente la largeur maximale */
+    margin: 0 auto;
+    background-color: $white;
+    opacity: 0.95;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajuste le padding pour différents écrans */
+@media (max-width: 1200px) {
+    .article-admin-form {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .article-admin-form {
+        max-width: 95%; /* Pour les petits écrans */
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .article-admin-form {
+        max-width: 100%;
+        padding: 5px;
+    }
+}
+
+/* Garde les autres styles similaires */
+.article-admin-form .form-group {
+    margin-bottom: 15px;
+}
+
+.article-admin-form label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.article-admin-form input[type="text"],
+.article-admin-form input[type="date"],
+.article-admin-form textarea,
+.article-admin-form select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.article-admin-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+

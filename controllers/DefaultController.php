@@ -9,7 +9,12 @@ class DefaultController extends AbstractController
 
     public function homepage() : void
     {
-        $this->render('front/home.html.twig', [], []);
+        $am = new ArticlesManager();
+        $articles = $am->getLastArticles(3);
+        
+        $this->render('front/home.html.twig', [
+            'articles'      => $articles
+            ], []);
     }
     
     public function notFound() : void

@@ -16,6 +16,7 @@
             </div>
         {% endif %}
         <form method="POST" action="index.php?route=applyModifs&id={{ user.id|e }}" class="user-admin-form">
+            <input type="hidden" id="csrf_token" name="csrf_token" value="{{ session.csrf_token }}" />
             <!-- Id -->
             <div class="user-info">
                 <span>ID :</span>
@@ -47,7 +48,7 @@
                 
             <!-- Bouton de sauvegarde -->
             <div class="container-submit">
-                <input type="submit" value="Sauvegarder les modifications" class="bouton-submit">
+                <input type="submit" value="Appliquer les modifications" class="bouton-submit">
             </div>
         </form>
     </main>

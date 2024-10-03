@@ -119,7 +119,8 @@ class Router {
             }
             break;
 
-        // Routes pour GESTION ARTICLES
+        // Routes pour ARTICLES
+        
         case "articles":
             if (isset($_GET["page"])) {
                 $this->arc->displayArticles();
@@ -148,7 +149,7 @@ class Router {
             $this->dbc->displayUsers();
             break;
             
-        case "modifyUser":
+        case "showUser":
             if (isset($_GET["id"])) {
                 $this->dbc->displayUser();
             }
@@ -172,7 +173,7 @@ class Router {
             
         case "modifyArticle":
             if (isset($_GET["id"])) {
-                $this->arc->modifyArticle();
+                $this->arc->displayModifyArticle();
             }
             break;
             

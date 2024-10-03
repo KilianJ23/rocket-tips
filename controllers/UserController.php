@@ -166,25 +166,59 @@ class UserController extends AbstractController
         
         $id = $_GET['id'];
         
-        if(isset($_POST['email']) && isset($_POST['name']) && isset($_POST['id']) && isset($_POST['role'])) {
-            $user = new User($_POST["name"], $_POST["email"], "password", $_POST["role"]);
-            $user->setId($_POST["id"]);
+        if(isset($_POST['email']) && isset($_POST['name']) && isset($_POST['id']) && isset($_POST['role']) && isset($_POST['csrf_token'])) {
             
-            $user2 = $this->um->findUserByEmail($_POST['email']);
+            $data = [
+                'name'  => ucfirst(trim($_POST['name'])),           // Removing unnecessary spaces and uppercasing the first letter of the firstname, the rest in lowercase.           
+                'email' => strtolower(trim($_POST['email'])),       // Removing unnecessary spaces and lowering the email
+                'id'    => trim($_POST['id']),                      // Removing unnecessary spaces in the id
+                'role'  => $_POST['role']
+            ];
             
-            if($user2 === null) {
-                $this->um->updateUser($user);
-                $_SESSION['success_message'] = "L'utilisateur a bien été modifié";
-                $this->redirect("modifyUser&id=$id");
+            if(empty($data['name']) || empty($data['id']) || empty($data['email']) || empty($data['role']) ){
+                $_SESSION['error_message'] = "Tous les champs doivent être remplis";
+                $this->redirect("showUser&id=$id");
+            }
+            $tm = new CSRFTokenManager();
+
+            if($tm->validateCSRFToken($_POST['csrf_token'])) {
+            
+                $user = new User($data["email"], $data["name"], "password", $data["role"]);
+                $user->setId($data["id"]);
+                
+                $user2 = $this->um->findUserByEmail($data['email']);
+                
+                
+                if(($user2 === null) || $user2->getId() === $user->getId()) {
+                    
+                    $user3 = $this->um->findUserByName($data['name']);
+                    
+                    if(($user3 === null) || $user3->getId() === $user->getId()) {
+                    
+                    $this->um->updateUser($user);
+                    $_SESSION['success_message'] = "L'utilisateur a bien été modifié";
+                    $this->redirect("showUser&id=$id");
+                    }
+                    
+                    else {
+                    $_SESSION['error_message'] = "Un utilisateur possède déjà ce nom";
+                    $this->redirect("showUser&id=$id");
+                    }
+                }
+                else {
+                    $_SESSION['error_message'] = "Un utilisateur possède déjà cette adresse e-mail";
+                    $this->redirect("showUser&id=$id");
+                }
             }
             else {
-                $_SESSION['error_message'] = "Un utilisateur possède déjà cette adresse e-mail";
-                $this->redirect("modifyUser&id=$id");
+                $_SESSION['error_message'] = "Le jeton CSRF est invalide.";
+                $this->redirect("showUser&id=$id");
             }
         }
         else {
-                $_SESSION['error_message'] = "Tous les champs doivent être remplis";
-                $this->redirect("modifyUser&id=$id");
-            }
+            $_SESSION['error_message'] = "Tous les champs doivent être remplis";
+            $this->redirect("showUser&id=$id");
+        }
     }
 }
+

@@ -5,7 +5,7 @@
     h2, h3, p, a {
         font-size: 0.8em;
     }
-
+    
     .container-filters {
         display: flex;
         flex-direction: column;
@@ -71,6 +71,11 @@
         justify-content: space-between;
         flex-direction: column;
         align-items: center;
+        
+        a {
+            text-decoration: none;
+            width: calc(33.333% - 20px);
+        }
     }
     
     .article-card {
@@ -80,20 +85,18 @@
         margin: 20px;
         max-width: 300px; 
         text-align: center;
-        /*flex: 1;*/
         
         &:hover {
-      /*box-shadow: 0 8px 15px rgba(41, 180, 224, 0.5);*/
-      box-shadow: 0 0 4px #fff,
-                inset 0 0 4px #fff,
-                0 0 8px $skyblue,
-                inset 0 0 8px $skyblue,
-                0 0 16px $skyblue,
-                inset 0 0 16px $skyblue;
-      transform: translateY(-5px);
-      cursor: pointer;
-      transition-duration: 0.6s;
-    }
+          box-shadow: 0 0 4px #fff,
+                    inset 0 0 4px #fff,
+                    0 0 8px $skyblue,
+                    inset 0 0 8px $skyblue,
+                    0 0 16px $skyblue,
+                    inset 0 0 16px $skyblue;
+          transform: translateY(-5px);
+          cursor: pointer;
+          transition-duration: 0.6s;
+        }
     }
     
     .article-card img {
@@ -152,19 +155,13 @@
         
         &:hover {
         background-color: #2980b9; 
-    }
+        }
     }
     
     .pagination .active a {
         background-color: #2c3e50; /* Couleur foncée pour la page active */
         cursor: default;
     }
-    
-    /* Style optionnel pour les boutons "Précédent" et "Suivant" si vous décidez de les ajouter 
-    .pagination .prev a,
-    .pagination .next a {
-        background-color: #2ecc71;  Vert, pour les différencier 
-    } */
     
     .pagination .prev a:hover,
     .pagination .next a:hover {
@@ -187,10 +184,9 @@
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         overflow: hidden;
-        width: calc(33.333% - 20px); 
         margin-bottom: 20px; 
         text-align: center;
     }
         
     }
-    }
+}
