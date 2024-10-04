@@ -7,16 +7,16 @@ class ArticlesManager extends AbstractManager {
         parent::__construct();
     }
     
-    //Methos to create a new user
+    //Method to create a new Article
     
-    /*public function createArticle(User $user): void
+    public function createArticle(Article $article): void
     {
 
         $parameters = [
-            "email" => $user->getEmail(),
-            "name" => $user->getName(),
-            "password" => $user->getPassword(),
-            "role" => $user->getRole(),
+            "title" => $article->getTitle(),
+            "content" => $article->getContent(),
+            "level" => $article->getLevel(),
+            "description" => $article->getDescription(),
 
         ];
         
@@ -28,7 +28,7 @@ class ArticlesManager extends AbstractManager {
         $query->execute($parameters);
 
         $user->setId($this->db->lastInsertId());
-    }*/
+    }
     
     
     // Method to find an article by its level

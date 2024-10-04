@@ -20,12 +20,12 @@
                     <tbody>
                         {% for user in users %}
                             <tr>
-                                <td>{{ user.id|e }}</td>
-                                <td>{{ user.email|e }}</td>
-                                <td>{{ user.name|e }}</td>
-                                <td>{{ user.role|e }}</td>
-                                <td><a href="?route=showUser&id={{ user.id|e }}">Modifier</a></td>
-                                <td><a href="?route=deleteUser&id={{ user.id|e }}">Supprimer</a></td>
+                                <td>{{ user.id|striptags }}</td>
+                                <td>{{ user.email|striptags }}</td>
+                                <td>{{ user.name|striptags }}</td>
+                                <td>{{ user.role|striptags }}</td>
+                                <td><a href="?route=showUser&id={{ user.id|striptags }}">Modifier</a></td>
+                                <td><a href="?route=deleteUser&id={{ user.id|striptags }}">Supprimer</a></td>
                             </tr>
                         {% endfor %}
                     </tbody>

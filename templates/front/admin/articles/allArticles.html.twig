@@ -5,7 +5,11 @@
 {% block main %}
     <main class="container-grass">
         <h1>Tous les articles</h1>
-            
+        
+        <a href="?route=newArticle" class="bouton-create">
+          Créer un article
+        </a>
+                    
         <div class="table-container">
             <table>
                 <thead>
@@ -21,13 +25,13 @@
                 <tbody>
                     {% for article in articles %}
                         <tr>
-                            <td>{{ article.title|e }}</td>
-                            <td>{{ article.content|e }}</td>
-                            <td>{{ article.publish_date|e }}</td>
-                            <td>{{ article.level|e }}</td>
-                            <td>{{ article.description|e }}</td>
-                            <td><a href="?route=modifyArticle&id={{ article.id|e }}">Modifier</a></td>
-                            <td><a href="?route=deleteArticle&id={{ article.id|e }}">Supprimer</a></td>
+                            <td>{{ article.title|striptags }}</td>
+                            <td>{{ article.content|striptags }}</td>
+                            <td>{{ article.publish_date|striptags }}</td>
+                            <td>{{ article.level|striptags }}</td>
+                            <td>{{ article.description|striptags }}</td>
+                            <td><a href="?route=modifyArticle&id={{ article.id|striptags }}">Modifier</a></td>
+                            <td><a href="?route=deleteArticle&id={{ article.id|striptags }}">Supprimer</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>

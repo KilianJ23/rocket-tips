@@ -6,7 +6,7 @@
     <article class="container-article">
         <header class="header-article">
             <h1>{{ article.title }}</h1>
-            <img src="{{ article.image_url }}" alt="{{ article.image_alt|e }}">
+            <img src="{{ article.image_url }}" alt="{{ article.image_alt|striptags }}">
         </header>
     
         <section class="article-content">

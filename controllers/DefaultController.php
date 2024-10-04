@@ -21,4 +21,15 @@ class DefaultController extends AbstractController
     {
         $this->render('front/error404.html.twig', [], []);
     }
+    
+    public function clearSessionMessages(): void
+    {
+        if(isset($_SESSION['error_message'])) {
+            unset($_SESSION['error_message']);
+        }
+
+        if(isset($_SESSION['success_message'])) {
+            unset($_SESSION['success_message']);
+        }
+    }
 }

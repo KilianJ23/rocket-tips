@@ -15,28 +15,28 @@
                 {{ session.success_message }}
             </div>
         {% endif %}
-        <form method="POST" action="index.php?route=applyModifs&id={{ user.id|e }}" class="user-admin-form">
+        <form method="POST" action="index.php?route=showUser&id={{ user.id|striptags }}" class="user-admin-form">
             <input type="hidden" id="csrf_token" name="csrf_token" value="{{ session.csrf_token }}" />
             <!-- Id -->
             <div class="user-info">
                 <span>ID :</span>
-                <input type="number" name="id" id="id" value="{{ user.id|e }}" readonly="readonly">
+                <input type="number" name="id" id="id" value="{{ user.id|striptags }}" readonly="readonly">
             </div>
             <!-- Nom -->
             <div class="user-info">
                 <span>Nom :</span>
-                <input type="text" name="name" id="name" value="{{ user.name|e }}">
+                <input type="text" name="name" id="name" value="{{ user.name|striptags }}">
             </div>
             <!-- Email -->
             <div class="user-info">
                 <span>Email :</span>
-                <input type="email" name="email" id="email" value="{{ user.email|e }}">
+                <input type="email" name="email" id="email" value="{{ user.email|striptags }}">
             </div>
             <!-- Rôle -->
             <div class="user-info">
                 <span>Rôle :</span>
                 <select name="role" id="role">
-                  <option value="{{ user.role|e }}">{{ user.role|e }}</option>
+                  <option value="{{ user.role|striptags }}">{{ user.role|striptags }}</option>
                   {% if user.role == "ADMIN" %}
                       <option value="USER">USER</option>
                   {% endif %}

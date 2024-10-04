@@ -33,7 +33,7 @@
                             <span></span>
                         </button>
                         <div class="navlinks-container">
-                            {% if not session.role == "ADMIN" %}
+                            {% if session.role != "ADMIN" %}
                                 <a href="?route=home" aria-current="page">Accueil</a>
                             {% endif %}
                             <a href="?route=articles">Articles</a>

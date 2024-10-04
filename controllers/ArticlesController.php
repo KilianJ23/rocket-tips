@@ -83,9 +83,37 @@ class ArticlesController extends AbstractController
             "articles" => $articles], []);
     }
     
-    // Method to display all articles in the admin panel
+    // Method to show the creation page of an article
     
-    public function displayModifyArticle() {
+    public function newArticle() {
+        
+        $dc = new DefaultController();
+        $dc->clearSessionMessages();        // Clear the Session messages
+        $scripts = ['assets/js/image_size.js'];
+        $this->render('front/admin/articles/newArticle.html.twig', [], $scripts);
+        
+    }
+    
+    // Method to create an article and push it in the database
+    
+    public function createArticle() {
+        
+        $dc = new DefaultController();
+        $dc->clearSessionMessages();        // Clear the Session messages
+        
+        $dbc = new DashboardController();
+        $dbc->checkArticleForm("newArticle");
+        
+        /*var_dump($dbc->checkArticleForm("createArticle"));
+        die;*/
+        $article = new Article($data["title"], $data["content"], $data["publish_date"], $data["level"], $data["description"]);
+        
+    }
+    
+    
+    // Method to show the editing page for an article
+    
+    /*public function displayModifyArticle() {
         $articleId = $_GET['id'];
         $article = $this->am->getArticleById($articleId);
         
@@ -93,26 +121,28 @@ class ArticlesController extends AbstractController
             'article'      => $article
         ], []);
         
-        if(isset($_SESSION['error_message'])) {
-            unset($_SESSION['error_message']);
-        }
-
-        if(isset($_SESSION['success_message'])) {
-            unset($_SESSION['success_message']);
-        }
-    }
+        $dc = new DefaultController();
+        $dc->clearSessionMessages();            // Clear the Session messages
+    }*/
     
-    // Method to edit an article and update it in the database
+    // Method to display and edit an article and then update it in the database
     
     public function modifyArticle(): void
     {
-        if(isset($_SESSION['error_message'])) {
-            unset($_SESSION['error_message']);
-        }
+        $dc = new DefaultController();
+        $dc->clearSessionMessages();
+        
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $articleId = $_GET['id'];
+            $article = $this->am->getArticleById($articleId);
+            
+            $this->render('front/admin/articles/modifyArticle.html.twig', [
+                'article'      => $article
+            ], []);
 
-        if(isset($_SESSION['success_message'])) {
-            unset($_SESSION['success_message']);
+            return;
         }
+                    // Clear the Session messages
         
         $id = $_GET['id'];
         
@@ -146,7 +176,7 @@ class ArticlesController extends AbstractController
                 }
                 
                 if(strlen($data['description']) > 255){
-                    $_SESSION['error_message'] = "La description ne peut pas faire plus de 255 caractères";
+                    $_SESSION['error_message'] += "La description ne peut pas faire plus de 255 caractères";
                     $this->redirect("modifyArticle&id=$id");
                 }
             }
@@ -157,4 +187,6 @@ class ArticlesController extends AbstractController
             }
         }
     }
+    
+    
 }

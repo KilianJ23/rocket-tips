@@ -1,0 +1,66 @@
+{% extends 'front/layout.html.twig' %}
+
+{% block title %}Rédiger article{{ parent() }}{% endblock %}
+
+{% block main %}
+    <main class="container-grass">
+        <h1>Rédiger un article</h1>
+        {% if session.error_message %}
+            <div class="error alert" role="alert">
+                {{ session.error_message }}
+            </div>
+        {% endif %}
+        {% if session.success_message %}
+            <div class="success alert" role="alert">
+                {{ session.success_message }}
+            </div>
+        {% endif %}
+        <form method="POST" action="index.php?route=createArticle" class="article-admin-form">
+            <input type="hidden" id="csrf_token" name="csrf_token" value="{{ session.csrf_token }}" />
+            
+            <div class="form-group">
+                <label for="title">Titre</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="content">Contenu</label>
+                <textarea id="content" name="content" rows="10" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="publish_date">Date de publication</label>
+                <input type="date" id="publish_date" name="publish_date" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="level">Niveau</label>
+                <select id="level" name="level" required>
+                    <option value="1">Débutant</option>
+                    <option value="2">Intermédiaire</option>
+                    <option value="3">Avancé</option>
+                </select>
+            </div>
+        
+            <div class="form-group">
+                <label for="description">Description courte</label>
+                <textarea id="description" name="description" rows="3" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label  for     = "imag_article">Image principale : </label>
+                <input  type    = "file"
+                        accept  = "image/"
+                        name    = "imag_article"
+                        id      = "imag_article"
+                        class   = "flyover"
+                        required></br>
+                <small class="form-text text-muted">Sélectionnez une image : Formats ['jpg', 'jpeg', 'gif', 'png'].</small></br>
+                <small class="form-text text-muted">Dimensions de l'image : [500px 531px].</small>
+            </div>
+        
+            <button type="submit" class="bouton-submit">Enregistrer l'article</button>
+        </form>
+
+    </main>
+{% endblock %}

@@ -159,6 +159,11 @@ fieldset {
 /* Garde les autres styles similaires */
 .article-admin-form .form-group {
     margin-bottom: 15px;
+    
+    .form-text {
+        font-size: 12px;
+        font-family: Arial;
+    }
 }
 
 .article-admin-form label {

@@ -67,3 +67,29 @@
     background-color: $darkblue;
     }
 }
+
+// CREATE USER/ARTICLE button
+
+.bouton-create {
+  background-color: $skyblue;
+  color: $white;
+  border: none;
+  padding: 6px 18px;
+  font-size: 14px;
+  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  margin-bottom: 1em;
+}
+
+.bouton-create:hover {
+  background-color: $darkblue;
+}
+
+.bouton-create::before {
+  content: "+";
+  margin-right: 8px;
+  font-size: 24px;
+}

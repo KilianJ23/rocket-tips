@@ -377,6 +377,30 @@ header nav #titre-logo {
   background-color: #047ea5;
 }
 
+.bouton-create {
+  background-color: #29B4E0;
+  color: #FFFFFF;
+  border: none;
+  padding: 6px 18px;
+  font-size: 14px;
+  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  margin-bottom: 1em;
+}
+
+.bouton-create:hover {
+  background-color: #047ea5;
+}
+
+.bouton-create::before {
+  content: "+";
+  margin-right: 8px;
+  font-size: 24px;
+}
+
 main {
   font-family: Krona One;
 }
@@ -921,6 +945,10 @@ fieldset {
 /* Garde les autres styles similaires */
 .article-admin-form .form-group {
   margin-bottom: 15px;
+}
+.article-admin-form .form-group .form-text {
+  font-size: 12px;
+  font-family: Arial;
 }
 
 .article-admin-form label {

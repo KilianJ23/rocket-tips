@@ -140,7 +140,6 @@ class UserController extends AbstractController
             $this->redirect("admin-edit-user&user_id=$id");
         }
     }
-
     
     // Method deleteUser() : Completely erases the user from the database
     
@@ -152,16 +151,22 @@ class UserController extends AbstractController
         $this->displayUsers();
     }
     
-    // Method modifyUser() : Updates the data regarding a user in the database
+    // Method modifyUser() : Displays a user or Updates the data regarding this user in the database
     
     public function modifyUser(): void
     {
-        if(isset($_SESSION['error_message'])) {
-            unset($_SESSION['error_message']);
-        }
-
-        if(isset($_SESSION['success_message'])) {
-            unset($_SESSION['success_message']);
+        $dc = new DefaultController();
+        $dc->clearSessionMessages(); 
+        
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $userId = $_GET['id'];
+            $user = $this->um->getUserById($userId);
+            
+            $this->render('front/admin/users/modifyUser.html.twig', [
+                'user'      => $user
+            ], []);
+            
+            return;
         }
         
         $id = $_GET['id'];

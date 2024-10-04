@@ -36,10 +36,10 @@
                     
                     <a href="?route=article&id={{ article.id }}">
                         <div class="article-card">
-                            <img src="./assets/img/half-flip.webp" alt="Article sur {{ article.title }}">
+                            <img src="./assets/img/half-flip.webp" alt="Article sur {{ article.title|striptags }}">
                             <div class="container-description">
-                                <h3>{{ article.title }}</h3>
-                                <p>{{ article.description }}</p>
+                                <h3>{{ article.title|striptags }}</h3>
+                                <p>{{ article.description|striptags }}</p>
                             </div>
                         </div>
                     </a>

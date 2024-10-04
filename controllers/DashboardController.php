@@ -21,7 +21,6 @@ class DashboardController extends AbstractController
     
     public function displayUsers() 
     {
-        $um = new UserManager();                    // LIGNE INUTILE
         $users = $this->um->getAllUsers();
         
         $this->render('front/admin/users/users.html.twig', [
@@ -30,7 +29,7 @@ class DashboardController extends AbstractController
     
     // Method displayUser() : Shows the information of a single user
     
-    public function displayUser() 
+    /*public function displayUser() 
     {
         $userId = $_GET['id'];
         $user = $this->um->getUserById($userId);
@@ -39,12 +38,56 @@ class DashboardController extends AbstractController
             'user'      => $user
         ], []);
         
+        $dc = new DefaultController();
+        $dc->clearSessionMessages();            // Clear the Session messages
+    }*/
+    
+    public function checkArticleForm(string $route) {
         if(isset($_SESSION['error_message'])) {
             unset($_SESSION['error_message']);
         }
 
         if(isset($_SESSION['success_message'])) {
             unset($_SESSION['success_message']);
+        }
+        
+        if(isset($_POST['title']) && isset($_POST['content']) && isset($_POST['publish_date']) && isset($_POST['level']) && isset($_POST['csrf_token']) && isset($_POST['description'])) {
+            
+            $data = [
+                'title'  => ucfirst(trim($_POST['title'])),                          // Removing unnecessary spaces and uppercasing the first letter of the firstname, the rest in lowercase.           
+                'content' => strip_tags($_POST['content'], '<p><br><strong>'),       // Removing unnecessary spaces and lowering the email
+                'publish_date'    => trim($_POST['publish_date']),                   // Removing unnecessary spaces in the id
+                'level'  => $_POST['level'],
+                'description'  => $_POST['description']
+            ];
+            
+            if(empty($data['title']) || empty($data['content']) || empty($data['publish_date']) || empty($data['level']) || empty($data['description']) ){
+                $_SESSION['error_message'] = "Tous les champs doivent être remplis";
+                $this->redirect($route);
+            }
+            $tm = new CSRFTokenManager();
+
+            if($tm->validateCSRFToken($_POST['csrf_token'])) {
+            
+                // TO DO : GESTION DE L'IMAGE
+                
+                if(strlen($data['title']) > 255){
+                    $_SESSION['error_message'] = "Le titre ne peut pas faire plus de 255 caractères";
+                    $this->redirect($route);
+                }
+                
+                if(strlen($data['description']) > 255){
+                    $_SESSION['error_message'] = "La description ne peut pas faire plus de 255 caractères";
+                    $this->redirect($route);
+                }
+                
+                return true;
+            }
+                    
+            else {
+                $_SESSION['error_message'] = "Le jeton CSRF est invalide.";
+                $this->redirect($route);
+            }
         }
     }
 }

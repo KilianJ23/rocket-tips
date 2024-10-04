@@ -36,9 +36,9 @@
                     {% for article in articles %}
                         
                         <div class="article-item">
-                            <img src="{{ article.image_url }}" alt="{{ article.image_alt }}">
-                            <a href="?route=article&id={{ article.id }}">
-                            <h3>{{ article.title }}</h3>
+                            <img src="{{ article.image_url }}" alt="{{ article.image_alt|striptags }}">
+                            <a href="?route=article&id={{ article.id|striptags }}">
+                            <h3>{{ article.title|striptags }}</h3>
                             </a>
                         </div>
                     {% endfor %}
