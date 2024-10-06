@@ -7,19 +7,40 @@ class UserController extends AbstractController
         parent::__construct();
         $this->um = new UserManager();
     }
+    
+    public function checkSessionTimeout() {
+        
+        $inactive_limit = 1800; // 1800 = 30 minutes
+
+        if (!isset($_SESSION['last_activity'])) {
+            
+            $_SESSION['last_activity'] = time();
+            
+        } 
+        
+        else if (time() - $_SESSION['last_activity'] > $inactive_limit) {
+            
+            session_unset();
+            session_destroy();
+            session_start();
+            
+            $dc = new DefaultController();
+            $dc->clearSessionMessages();
+            $_SESSION['error_message'] = "Votre session a expiré, veuillez vous reconnecter";
+            $this->redirect("connexion");
+            exit();
+        }
+
+        $_SESSION['last_activity'] = time(); // Mise à jour du timestamp d'activité
+    }
 
     public function create() : void {
         $this->render("admin/users/create.html.twig", [], []);
     }
 
     public function checkCreate() : void {
-        if(isset($_SESSION['error_message'])) {
-            unset($_SESSION['error_message']);
-        }
-
-        if(isset($_SESSION['success_message'])) {
-            unset($_SESSION['success_message']);
-        }
+        $dc = new DefaultController();
+        $dc->clearSessionMessages();
 
         if(isset($_POST['email']) && isset($_POST['name']) && isset($_POST['password']) && isset($_POST['confirm_password']) && isset($_POST['csrf_token']) && isset($_POST["role"])) {
 

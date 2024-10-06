@@ -20,6 +20,10 @@ if(!isset($_SESSION["csrf_token"]))
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
+require_once 'controllers/UserController.php';
+$controller = new UserController();
+$controller->checkSessionTimeout();
+
 $route = null;
 if (isset($_GET['route'])) {
     $route = $_GET['route'];

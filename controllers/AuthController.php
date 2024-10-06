@@ -48,14 +48,8 @@ class AuthController extends AbstractController
 
     public function checkRegister() : void
     {
-        if(isset($_SESSION['error_message'])) {
-            unset($_SESSION['error_message']);
-        }
-
-        if(isset($_SESSION['success_message'])) {
-            unset($_SESSION['success_message']);
-        }
-        
+        $dc = new DefaultController();
+        $dc->clearSessionMessages();
         
         // vérifier que tous les champs du formulaire sont là
         if(isset($_POST['email']) && isset($_POST['name']) && isset($_POST['password']) && isset($_POST['confirm_password']) && isset($_POST['csrf_token'])) {
@@ -123,26 +117,17 @@ class AuthController extends AbstractController
     {
         $this->render('front/login.html.twig', [], []);
         
-        if(isset($_SESSION['error_message'])) {
-            unset($_SESSION['error_message']);
-        }
-
-        if(isset($_SESSION['success_message'])) {
-            unset($_SESSION['success_message']);
-        }
+        $dc = new DefaultController();
+        $dc->clearSessionMessages();
+        
     }
 
     //Méthode de checkLogin() : vérifie la présence de l'utilisateur dans la BDD et la cohérence des données entrées.
 
     public function checkLogin() : void
     {
-        if(isset($_SESSION['error_message'])) {
-            unset($_SESSION['error_message']);
-        }
-
-        if(isset($_SESSION['success_message'])) {
-            unset($_SESSION['success_message']);
-        }
+        $dc = new DefaultController();
+        $dc->clearSessionMessages();
 
         if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['csrf_token'])) {
 

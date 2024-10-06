@@ -146,15 +146,18 @@ class ArticlesController extends AbstractController
         
         $id = $_GET['id'];
         
+        var_dump($_POST);
+        die;
+        
         if(isset($_POST['title']) && isset($_POST['content']) && isset($_POST['publish_date']) && isset($_POST['level']) && isset($_POST['csrf_token']) && isset($_POST['description'])) {
             
             $data = [
-                'title'  => ucfirst(trim($_POST['title'])),           // Removing unnecessary spaces and uppercasing the first letter of the firstname, the rest in lowercase.           
-                'content' => strip_tags($_POST['content'], '<p><br><strong>'),       // Removing unnecessary spaces and lowering the email
-                'publish_date'    => trim($_POST['publish_date']),                      // Removing unnecessary spaces in the id
-                'level'  => $_POST['level'],
-                'description'  => $_POST['description'],
-                'id' => $_GET['id']
+                'title'         => ucfirst(trim($_POST['title'])),           // Removing unnecessary spaces and uppercasing the first letter of the firstname, the rest in lowercase.           
+                'content'       => strip_tags($_POST['content'], '<p><br><strong>'),       // Removing unnecessary spaces and lowering the email
+                'publish_date'  => trim($_POST['publish_date']),                      // Removing unnecessary spaces in the id
+                'level'         => $_POST['level'],
+                'description'   => $_POST['description'],
+                'id'            => $_GET['id']
             ];
             
             if(empty($data['title']) || empty($data['content']) || empty($data['publish_date']) || empty($data['level']) || empty($data['description']) ){
