@@ -9,28 +9,46 @@ class ArticlesManager extends AbstractManager {
     
     //Method to create a new Article
     
-    public function createArticle(Article $article): void
+    public function createArticle(Article $article): Article
     {
-
+        $query = $this->db->prepare('INSERT INTO articles (title, content, publish_date, level, description) VALUES (:title, :content, :publish_date, :level, :description)');
+        
         $parameters = [
             "title" => $article->getTitle(),
             "content" => $article->getContent(),
             "level" => $article->getLevel(),
             "description" => $article->getDescription(),
-
+            "publish_date" => $article->getPublishDate()
         ];
         
-        
-
-        $query = $this->db->prepare('INSERT INTO users (email, name, password, role) VALUES (:email, :name, :password, :role)');
-        
-
         $query->execute($parameters);
 
-        $user->setId($this->db->lastInsertId());
+        $article->setId($this->db->lastInsertId());
+        return $article;
     }
     
+    //Method to update an Article
     
+    public function updateArticle(Article $article): bool
+    {
+        $query = $this->db->prepare('
+            UPDATE articles 
+            SET title = :title, content = :content, publish_date = :publish_date, level = :level, description = :description
+            WHERE id = :id
+        ');
+        
+        $parameters = [
+            "title" => $article->getTitle(),
+            "content" => $article->getContent(),
+            "level" => $article->getLevel(),
+            "description" => $article->getDescription(),
+            "publish_date" => $article->getPublishDate(),
+            "id" => $article->getId()
+        ];
+        
+        return $query->execute($parameters);
+    }
+
     // Method to find an article by its level
     
      public function findArticleByLevel(int $level): ?Article {
@@ -63,7 +81,7 @@ class ArticlesManager extends AbstractManager {
         return $result;
     }
     
-    // Methods to COUNT the number of articles per page
+    // Method to COUNT the TOTAL number of Medias
     
     public function getCountAll() {
         $query = $this->db->prepare("
@@ -74,6 +92,8 @@ class ArticlesManager extends AbstractManager {
         $result = $query->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
+    
+    // Method to COUNT the number of articles of a level in a particuler
     
     public function getCountAllByLevel(int $level) {
         $query = $this->db->prepare("
@@ -140,7 +160,7 @@ class ArticlesManager extends AbstractManager {
         }
     }*/
     
-    // Method to fetch an article 
+    // Method to fetch an article and his media
     
     public function getArticleById(int $id): array {
         $query = $this->db->prepare("
@@ -173,4 +193,5 @@ class ArticlesManager extends AbstractManager {
     $query->execute();
     return $query->fetchAll(PDO::FETCH_ASSOC);
     }
+    
 }

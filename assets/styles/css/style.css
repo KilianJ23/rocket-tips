@@ -302,6 +302,9 @@ header nav #titre-logo {
   text-align: center;
   margin-bottom: 10px;
 }
+.alert ul {
+  list-style: none;
+}
 
 .error {
   border-color: #FF0000;
@@ -950,14 +953,19 @@ fieldset {
   font-size: 12px;
   font-family: Arial;
 }
-
 .article-admin-form label {
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 5px;
   color: #333;
 }
-
+.article-admin-form .edit-img {
+  display: flex;
+  flex-direction: column;
+}
+.article-admin-form .edit-img input {
+  margin: 2px 0px 2px 0px;
+}
 .article-admin-form input[type=text],
 .article-admin-form input[type=date],
 .article-admin-form textarea,
@@ -969,7 +977,6 @@ fieldset {
   border-radius: 5px;
   box-sizing: border-box;
 }
-
 .article-admin-form textarea {
   resize: vertical;
   min-height: 100px;

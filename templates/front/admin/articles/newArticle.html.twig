@@ -7,15 +7,23 @@
         <h1>Rédiger un article</h1>
         {% if session.error_message %}
             <div class="error alert" role="alert">
-                {{ session.error_message }}
+                <ul>
+                    {% for error in session.error_message %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
             </div>
         {% endif %}
         {% if session.success_message %}
             <div class="success alert" role="alert">
-                {{ session.success_message }}
+                <ul>
+                    {% for success in session.success_message %}
+                        <li>{{ success }}</li>
+                    {% endfor %}
+                </ul>
             </div>
         {% endif %}
-        <form method="POST" action="index.php?route=createArticle" class="article-admin-form">
+        <form method="POST" action="index.php?route=createArticle" class="article-admin-form" enctype="multipart/form-data">
             <input type="hidden" id="csrf_token" name="csrf_token" value="{{ session.csrf_token }}" />
             
             <div class="form-group">
@@ -57,6 +65,11 @@
                         required></br>
                 <small class="form-text text-muted">Sélectionnez une image : Formats ['jpg', 'jpeg', 'gif', 'png'].</small></br>
                 <small class="form-text text-muted">Dimensions de l'image : [500px 531px].</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="alt_description">Description courte de l'image</label>
+                <textarea id="alt_description" name="alt_description" rows="1" required></textarea>
             </div>
         
             <button type="submit" class="bouton-submit">Enregistrer l'article</button>

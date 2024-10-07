@@ -51,18 +51,22 @@ class DashboardController extends AbstractController
             unset($_SESSION['success_message']);
         }
         
-        if(isset($_POST['title']) && isset($_POST['content']) && isset($_POST['publish_date']) && isset($_POST['level']) && isset($_POST['csrf_token']) && isset($_POST['description'])) {
+        $_SESSION['error_message'] = [];
+        $_SESSION['success_message'] = [];
+        
+        if(isset($_POST['title']) && isset($_POST['content']) && isset($_POST['publish_date']) && isset($_POST['level']) && isset($_POST['csrf_token']) && isset($_POST['description']) && isset($_POST['alt_description'])) {
             
             $data = [
                 'title'  => ucfirst(trim($_POST['title'])),                          // Removing unnecessary spaces and uppercasing the first letter of the firstname, the rest in lowercase.           
-                'content' => strip_tags($_POST['content'], '<p><br><strong>'),       // Removing unnecessary spaces and lowering the email
-                'publish_date'    => trim($_POST['publish_date']),                   // Removing unnecessary spaces in the id
-                'level'  => $_POST['level'],
-                'description'  => $_POST['description']
+                'content' => strip_tags($_POST['content'], '<p><br><strong>'),       // Removing unnecessary spaces and unwanted HTML/PHP
+                'publish_date'    => trim($_POST['publish_date']),                   // Removing unnecessary spaces in the date
+                'level'  => trim($_POST['level']),
+                'description'  => strip_tags($_POST['description']),
+                'alt_description'  => strip_tags($_POST['alt_description'])
             ];
             
-            if(empty($data['title']) || empty($data['content']) || empty($data['publish_date']) || empty($data['level']) || empty($data['description']) ){
-                $_SESSION['error_message'] = "Tous les champs doivent être remplis";
+            if(empty($data['title']) || empty($data['content']) || empty($data['publish_date']) || empty($data['level']) || empty($data['description']) || empty($data['alt_description']) ){
+                $_SESSION['error_message'][] = "Tous les champs doivent être remplis";
                 $this->redirect($route);
             }
             $tm = new CSRFTokenManager();
@@ -72,20 +76,26 @@ class DashboardController extends AbstractController
                 // TO DO : GESTION DE L'IMAGE
                 
                 if(strlen($data['title']) > 255){
-                    $_SESSION['error_message'] = "Le titre ne peut pas faire plus de 255 caractères";
+                    
+                    $_SESSION['error_message'][] = "Le titre ne peut pas faire plus de 255 caractères";
+                    
+                    if(strlen($data['description']) > 255){
+                        
+                        $_SESSION['error_message'][] = "La description ne peut pas faire plus de 255 caractères";
+                
+                        if(strlen($data['alt_description']) > 255){
+                            
+                            $_SESSION['error_message'][] = "La description de l'image ne peut pas faire plus de 255 caractères";
+                        }
+                    }
                     $this->redirect($route);
                 }
                 
-                if(strlen($data['description']) > 255){
-                    $_SESSION['error_message'] = "La description ne peut pas faire plus de 255 caractères";
-                    $this->redirect($route);
-                }
-                
-                return true;
+                return $data;
             }
                     
             else {
-                $_SESSION['error_message'] = "Le jeton CSRF est invalide.";
+                $_SESSION['error_message'][] = "Le jeton CSRF est invalide.";
                 $this->redirect($route);
             }
         }

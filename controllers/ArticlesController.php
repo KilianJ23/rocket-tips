@@ -100,14 +100,54 @@ class ArticlesController extends AbstractController
         
         $dc = new DefaultController();
         $dc->clearSessionMessages();        // Clear the Session messages
+        $data = [];
         
         $dbc = new DashboardController();
-        $dbc->checkArticleForm("newArticle");
+        $data = $dbc->checkArticleForm("newArticle");
         
-        /*var_dump($dbc->checkArticleForm("createArticle"));
-        die;*/
         $article = new Article($data["title"], $data["content"], $data["publish_date"], $data["level"], $data["description"]);
         
+        if(isset($_FILES['imag_article']) && $_FILES['imag_article']['name'] !== '') {
+            // Setting the variables we are gonna use in the uploadFile method
+                $dossier = "img_Of_Articles";
+                $route = "newArticle";
+                $maxFileSize = 2 * 1024 * 1024; // 2 Mo
+                
+            // CHECK that the FILE SIZE is under the limit that we set with $maxFileSize.       
+                if ($_FILES['imag_article']['size'] > $maxFileSize) {
+                    $_SESSION['error_message'][] = "L'image est trop volumineuse. La taille maximale autorisée est de 2 Mo.";
+                    $this->redirect("newArticle");
+                }
+                    
+                $model = new Uploads();
+                $addArticle['addImg'] = $model->uploadFile($_FILES['imag_article'], $dossier, $route);
+                // $addArticle['addImg'] = $model->upload($_FILES['imag_article'], $dossier, 'public/uploads/', ["pdf"]);
+        }
+        else {
+            $_SESSION['error_message'][] = "Aucun fichier n'a été envoyé";
+            $this->redirect("newArticle");
+        }
+        
+        /*var_dump($addArticle, $_SESSION['error_message']);
+        die;*/
+        
+        // All checks have been cleared, we can insert the new Article in the DB
+        $newArticle = $this->am->createArticle($article);  // We get the newly inserted Article to use its ID to insert the media.
+        
+        $mm = new MediasManager();
+        $totalMedias = $mm->getCountAll();
+        $mm->addMedia($addArticle['addImg'], $data['alt_description'], $newArticle->getId(), "article", $newArticle->getPublishDate());
+        
+        $totalMediasFinal = $mm->getCountAll();
+        
+        if($totalMediasFinal > $totalMedias){
+            $_SESSION['success_message'][] = "L'article a été enregistré !";
+        }
+        else {
+            $_SESSION['error_message'] = "Toutes les vérifications sont OK mais l'image n'a pu être enregistrée.";
+        }
+        
+        $this->redirect("newArticle");
     }
     
     
@@ -129,9 +169,11 @@ class ArticlesController extends AbstractController
     
     public function modifyArticle(): void
     {
+        // Clear the Session messages
         $dc = new DefaultController();
         $dc->clearSessionMessages();
         
+        // If the page was loaded without a form submit, we simply render the template
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $articleId = $_GET['id'];
             $article = $this->am->getArticleById($articleId);
@@ -142,54 +184,61 @@ class ArticlesController extends AbstractController
 
             return;
         }
-                    // Clear the Session messages
         
-        $id = $_GET['id'];
+        $id = trim($_GET['id']);
+        $data = [];
         
-        var_dump($_POST);
-        die;
+        // CHECK that the form is valid - method in DashboardController
+        $dbc = new DashboardController();
+        $data = $dbc->checkArticleForm("modifyArticle&id=$id");
         
-        if(isset($_POST['title']) && isset($_POST['content']) && isset($_POST['publish_date']) && isset($_POST['level']) && isset($_POST['csrf_token']) && isset($_POST['description'])) {
-            
-            $data = [
-                'title'         => ucfirst(trim($_POST['title'])),           // Removing unnecessary spaces and uppercasing the first letter of the firstname, the rest in lowercase.           
-                'content'       => strip_tags($_POST['content'], '<p><br><strong>'),       // Removing unnecessary spaces and lowering the email
-                'publish_date'  => trim($_POST['publish_date']),                      // Removing unnecessary spaces in the id
-                'level'         => $_POST['level'],
-                'description'   => $_POST['description'],
-                'id'            => $_GET['id']
-            ];
-            
-            if(empty($data['title']) || empty($data['content']) || empty($data['publish_date']) || empty($data['level']) || empty($data['description']) ){
-                $_SESSION['error_message'] = "Tous les champs doivent être remplis";
-                $this->redirect("modifyArticle&id=$id");
-            }
-            $tm = new CSRFTokenManager();
-
-            if($tm->validateCSRFToken($_POST['csrf_token'])) {
-            
-                $article = new Article($data["title"], $data["content"], $data["publish_date"], $data["level"], $data["description"]);
-                $article->setId($data["id"]);
+        $article = new Article($data["title"], $data["content"], $data["publish_date"], $data["level"], $data["description"]);
+        $article->setId($id);
+        
+        //CHECK that the image given, if there is one, is valid
+        if(isset($_FILES['imag_article']) && $_FILES['imag_article']['name'] !== '') {
+            // Setting the variables we are gonna use in the uploadFile method
+                $dossier = "img_Of_Articles";
+                $route = "modifyArticle&id=$id";
+                $maxFileSize = 2 * 1024 * 1024; // 2 Mo
                 
-                // TO DO : GESTION DE L'IMAGE
-                
-                if(strlen($data['title']) > 255){
-                    $_SESSION['error_message'] = "Le titre ne peut pas faire plus de 255 caractères";
+            // CHECK that the FILE SIZE is under the limit that we set with $maxFileSize.       
+                if ($_FILES['imag_article']['size'] > $maxFileSize) {
+                    $_SESSION['error_message'][] = "L'image est trop volumineuse. La taille maximale autorisée est de 2 Mo.";
                     $this->redirect("modifyArticle&id=$id");
                 }
-                
-                if(strlen($data['description']) > 255){
-                    $_SESSION['error_message'] += "La description ne peut pas faire plus de 255 caractères";
-                    $this->redirect("modifyArticle&id=$id");
-                }
-            }
                     
-            else {
-                $_SESSION['error_message'] = "Le jeton CSRF est invalide.";
-                $this->redirect("modifyArticle&id=$id");
-            }
+                $model = new Uploads();
+                $addArticle['addImg'] = $model->uploadFile($_FILES['imag_article'], $dossier, $route);
+                
+                // GET the already existing media ID
+                
+                $mm = new MediasManager();
+                $mediaId = $mm->getIdFromOwner($id, "article");
+                
+                // IF the Media exists -> Update it, if it doesn't existe -> Create one.
+                
+                if($mediaId != "null"){
+                    $resultMedia = $mm->updateMedia($mediaId, $addArticle['addImg'], $data['alt_description'], $id, "article", $article->getPublishDate());
+                }
+                else {
+                    $resultMedia = $mm->addMedia($addArticle['addImg'], $data['alt_description'], $id, "article", $article->getPublishDate());
+                }
+
+                if($resultMedia != "true"){
+                    $_SESSION['error_message'][] = "L'image n'a pas pu être importée en Base de données";
+                    $this->redirect("modifyArticle&id=$id");
+                }
         }
+        
+        $newArticle = $this->am->updateArticle($article);
+        
+        if($newArticle != "true"){
+            $_SESSION['error_message'][] = "L'article n'a pas pu être modifié, l'image a bien été changée.";
+        }
+        else {
+            $_SESSION['success_message'][] = "L'article et l'image ont bien été modifiés !";
+        }
+        $this->redirect("modifyArticle&id=$id");
     }
-    
-    
 }

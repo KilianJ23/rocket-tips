@@ -31,5 +31,7 @@ class DefaultController extends AbstractController
         if(isset($_SESSION['success_message'])) {
             unset($_SESSION['success_message']);
         }
+        $_SESSION['error_message'] = [];
+        $_SESSION['success_message'] = [];
     }
 }
