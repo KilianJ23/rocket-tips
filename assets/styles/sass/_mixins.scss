@@ -21,18 +21,20 @@
   border-collapse: collapse;
   color: $text-color;
   table-layout: auto;
-  border-collapse: collapse;
+  border-radius: 8px;
 
-  th, td {
+  th, td, tr {
     border: $border-width $border-style $border-color;
     padding: $padding;
-    text-align: left;
+    text-align: center;
+    transition: background-color 0.5s ease;
   }
 
   th {
     background-color: $header-bg-color;
     color: $header-text-color;
     font-weight: bold;
+    text-transform: uppercase;
   }
 
   tr:nth-child(odd) {

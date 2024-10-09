@@ -1,14 +1,42 @@
 .table-container {
-    width: 100%;
+    width: 90%;
     overflow-x: auto;
+    border-radius: 20px;
+    
+    th, 
+    td {
+        padding: 10px;
+        border: 1px solid $darkgrey;
+    }
+    
+    th:nth-child(2), /* Colonne Contenu */
+    td:nth-child(2) {
+        width: 70%; /* Donne plus d'espace à la colonne Contenu */
+    }
+    
+    th:nth-child(4), /* Colonne Niveau */
+    td:nth-child(4) {
+        width: 5%; /* Réduit la largeur de la colonne Niveau */
+    }
+    
+    th:nth-child(5), /* Colonne Description */
+    td:nth-child(5) {
+        width: 15%; /* Ajuste la colonne Description */
+    }
+    
+    th:nth-child(3), /* Colonne Date de publication */
+    td:nth-child(3) {
+        width: 15%;
+    }
+    
+    th:nth-child(6), 
+    td:nth-child(6) {
+        width: 10%; /* Actions */
+    }
 }
 
 table {
     @include table-styles();
-
-        th,td {
-            text-align: center;
-        }
 }
 
 

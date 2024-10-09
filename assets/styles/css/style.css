@@ -532,14 +532,15 @@ main {
   cursor: pointer;
   transition-duration: 0.6s;
 }
-
+.article-item h3 {
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+}
 .article-item img {
   width: 100%;
   border-radius: 5px;
 }
-
 .article-item a {
-  margin-top: 1em;
+  /*margin-top: 1em;*/
   text-decoration: underline;
   color: #FFFFFF;
 }
@@ -758,8 +759,34 @@ main {
 }
 
 .table-container {
-  width: 100%;
+  width: 90%;
   overflow-x: auto;
+  border-radius: 20px;
+}
+.table-container th,
+.table-container td {
+  padding: 10px;
+  border: 1px solid #333333;
+}
+.table-container th:nth-child(2),
+.table-container td:nth-child(2) {
+  width: 70%; /* Donne plus d'espace à la colonne Contenu */
+}
+.table-container th:nth-child(4),
+.table-container td:nth-child(4) {
+  width: 5%; /* Réduit la largeur de la colonne Niveau */
+}
+.table-container th:nth-child(5),
+.table-container td:nth-child(5) {
+  width: 15%; /* Ajuste la colonne Description */
+}
+.table-container th:nth-child(3),
+.table-container td:nth-child(3) {
+  width: 15%;
+}
+.table-container th:nth-child(6),
+.table-container td:nth-child(6) {
+  width: 10%; /* Actions */
 }
 
 table {
@@ -769,17 +796,19 @@ table {
   border-collapse: collapse;
   color: #18181C;
   table-layout: auto;
-  border-collapse: collapse;
+  border-radius: 8px;
 }
-table th, table td {
+table th, table td, table tr {
   border: 1px solid #18181C;
   padding: 8px;
-  text-align: left;
+  text-align: center;
+  transition: background-color 0.5s ease;
 }
 table th {
   background-color: #047ea5;
   color: #FFFFFF;
   font-weight: bold;
+  text-transform: uppercase;
 }
 table tr:nth-child(odd) {
   background-color: #FFFFFF;
@@ -789,9 +818,6 @@ table tr:nth-child(even) {
 }
 table tr:hover {
   background-color: #29B4E0;
-}
-table th, table td {
-  text-align: center;
 }
 
 h1 {

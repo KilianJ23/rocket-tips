@@ -9,7 +9,7 @@ class ArticlesController extends AbstractController
         $this->am = new ArticlesManager();
     }
 
-    //Method displayArticles() : Displays the page with all the articles
+    // Method displayArticles() : Displays the page with all the articles
 
     public function displayArticles() {
         $scripts = ['assets/js/pagination_articles.js'];
