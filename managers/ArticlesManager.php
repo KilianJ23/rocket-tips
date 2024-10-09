@@ -48,6 +48,37 @@ class ArticlesManager extends AbstractManager {
         
         return $query->execute($parameters);
     }
+    
+    // Method to delete an Article and its associated media
+    
+    public function deleteArticleAndMedia(int $article_id, string $type): void
+    {
+        try {
+            // Start a transaction to ensure all operations are performed together
+            $this->db->beginTransaction();
+    
+            // 1. Delete the media associated with the article in the 'medias' table
+            $deleteMediaQuery = $this->db->prepare('DELETE FROM medias WHERE owner_id = :article_id AND type = :type');
+            
+            $deleteMediaQuery->bindValue(':article_id', $article_id, PDO::PARAM_INT);
+            $deleteMediaQuery->bindValue(':type', $type, PDO::PARAM_STR); // Binding the type properly
+            
+            $deleteMediaQuery->execute();
+    
+            // 2. Delete the article in the 'articles' table
+            $deleteArticleQuery = $this->db->prepare('DELETE FROM articles WHERE id = :article_id');
+            $deleteArticleQuery->bindValue(':article_id', $article_id, PDO::PARAM_INT);
+            $deleteArticleQuery->execute();
+    
+            // If all operations succeed, commit the transaction
+            $this->db->commit();
+        } catch (Exception $e) {
+            // In case of error, roll back the transaction
+            $this->db->rollBack();
+            throw new Exception("Error deleting article and its media: " . $e->getMessage());
+        }
+    }
+
 
     // Method to find an article by its level
     

@@ -6,6 +6,25 @@
     <main class="container-grass">
         <h1>Tous les articles</h1>
         
+        {% if session.error_message %}
+            <div class="error alert" role="alert">
+                <ul>
+                    {% for error in session.error_message %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        {% if session.success_message %}
+            <div class="success alert" role="alert">
+                <ul>
+                    {% for success in session.success_message %}
+                        <li>{{ success }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        
         <a href="?route=newArticle" class="bouton-create">
           Créer un article
         </a>

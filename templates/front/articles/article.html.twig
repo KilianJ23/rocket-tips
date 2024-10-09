@@ -3,6 +3,26 @@
 {% block title %}Article{{ parent() }}{% endblock %}
 
 {% block main %}
+
+    {% if session.error_message %}
+        <div class="error alert" role="alert">
+            <ul>
+                {% for error in session.error_message %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    {% if session.success_message %}
+        <div class="success alert" role="alert">
+            <ul>
+                {% for success in session.success_message %}
+                    <li>{{ success }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    
     <article class="container-article">
         <header class="header-article">
             <h1>{{ article.title }}</h1>
@@ -12,23 +32,34 @@
         <section class="article-content">
             <p>{{ article.content|raw }}</p>
         </section>
-    
-        <section class="comments">
-            <h2>Laisser un commentaire</h2>
-            <form action="#" method="post">
-                <div>
-                    <label for="username">Nom :</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div>
-                    <label for="comment">Commentaire :</label>
-                    <textarea id="comment" name="comment" rows="5" required></textarea>
-                </div>
-                <div>
-                    <button type="submit">Envoyer</button>
-                </div>
-            </form>
-        </section>
     </article>
-
+    
+    <section class="comments">
+        <h2>Laisser un commentaire</h2>
+        {% if session.user.name is defined %}
+            <form action="index.php?route=article&id={{ article.id }}" method="POST">
+                <textarea name="comment_content" placeholder="Écrivez votre commentaire" required></textarea>
+                <button type="submit">Envoyer</button>
+            </form>
+        {% else %}
+            <p>Vous devez être connecté pour ajouter un commentaire.</p>
+        {% endif %}
+        
+        <div class="comments-section">
+            {% if comments is not empty %}
+                <h3>Commentaires :</h3>
+                <ul>
+                    {% for comment in comments %}
+                        <li>
+                            <p>par <strong>{{ comment.name|e }} :</strong> {{ comment.content|e }}</p>
+                            <p><em>{{ comment.created_at }}</em></p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Aucun commentaire pour cet article.</p>
+            {% endif %}
+        </div>
+    </section>
+    
 {% endblock %}

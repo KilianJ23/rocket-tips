@@ -65,12 +65,49 @@ class ArticlesController extends AbstractController
     // Method to display a single article
     
     public function displayArticle() {
+        
+        $dc = new DefaultController();
+        $dc->clearSessionMessages();
+        
         $articleId = $_GET['id'];
         
         $article = $this->am->getArticleById($articleId);
+        $cm = new CommentsManager();
+        $comments = $cm->getCommentsByArticleId($articleId);
+        
+        // Case where no comment has been submitted
+        
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            
+            $this->render('front/articles/article.html.twig', [
+            'article'      => $article,
+            'comments' => $comments
+             ], []);
+
+            return;
+        }
+        
+        // Case where a comment has just been submitted
+        
+        else if (!empty($_POST['comment_content'])) {
+            
+            $commentContent = trim($_POST['comment_content']);  //Removing unnecessary spaces in the content 
+            $userId = $_SESSION['user']->getId();
+            $cm->addComment($articleId, $commentContent, $userId);
+        }
+        
+        else {
+            $_SESSION['error_message'][] = "Le commentaire ne peut être vide.";
+            $this->redirect("article&id=$articleId");
+        }
+        
+        // Re loading the comments in case one has been added
+        
+        $comments = $cm->getCommentsByArticleId($articleId);
         
         $this->render('front/articles/article.html.twig', [
-            'article'      => $article
+            'article'      => $article,
+            'comments' => $comments
         ], []);
     }
     
@@ -81,6 +118,9 @@ class ArticlesController extends AbstractController
         
         $this->render('front/admin/articles/allArticles.html.twig', [
             "articles" => $articles], []);
+            
+        $dc = new DefaultController();
+        $dc->clearSessionMessages();
     }
     
     // Method to show the creation page of an article
@@ -240,5 +280,24 @@ class ArticlesController extends AbstractController
             $_SESSION['success_message'][] = "L'article et l'image ont bien été modifiés !";
         }
         $this->redirect("modifyArticle&id=$id");
+    }
+    
+    
+    // Method deleteArticle() : Completely erases the article and its associated media from the database
+    
+    public function deleteArticle(): void
+    {
+        // Clear the Session messages
+        $dc = new DefaultController();
+        $dc->clearSessionMessages();
+        
+        $articleId = $_GET['id'];
+        $type = "article";
+        
+        $this->am->deleteArticleAndMedia($articleId, $type);
+        
+        $_SESSION['success_message'][] = "L'article a été supprimé";
+        
+        $this->redirect("manageArticles");
     }
 }

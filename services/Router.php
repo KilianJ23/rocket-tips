@@ -135,6 +135,13 @@ class Router {
                 $this->arc->modifyArticle();
             }
             break;
+        
+        case "deleteArticle":
+            $this->checkAdmin();
+            if (isset($_GET["id"])) {
+                $this->arc->deleteArticle();
+            }
+            break;
             
             
         case "forum":
