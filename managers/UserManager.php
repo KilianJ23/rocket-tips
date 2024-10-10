@@ -54,7 +54,6 @@ class UserManager extends AbstractManager {
             ];
         
         $query->execute($parameters);
-        $address = $query->fetch(PDO::FETCH_ASSOC);
     }
     
     

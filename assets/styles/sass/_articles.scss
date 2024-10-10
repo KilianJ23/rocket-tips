@@ -58,11 +58,15 @@
     .container-articles {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 20px;
+        padding: 20px 0px;
         display: flex;
         flex-direction: column;
         text-align: center;
         color: $white;
+        
+        h2 {
+            text-transform: uppercase;
+        }
     }
     
     .container-article-cards {
@@ -74,7 +78,6 @@
         
         a {
             text-decoration: none;
-            width: calc(33.333% - 20px);
         }
     }
     
@@ -82,7 +85,7 @@
         background-color: white;
         border-radius: 10px;
         overflow: hidden;
-        margin: 20px;
+        margin: 20px 0px;
         max-width: 300px; 
         text-align: center;
         
@@ -101,7 +104,7 @@
     
     .article-card img {
         width: 100%;
-        height: auto;
+        height: 190px;
         object-fit: cover;
     }
     

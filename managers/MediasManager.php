@@ -74,6 +74,25 @@ class MediasManager extends AbstractManager {
         
         return $query->execute();
     }
+    
+    // METHOD to UPDATE the MEDIA alt
+    
+    public function updateMediaAlt(int $id, string $alt): void {
+        
+        $query = $this->db->prepare("
+            UPDATE medias 
+            SET alt = :alt
+            WHERE id = :id
+        ");
+        
+        $parameters = [
+            "alt" => $alt,
+            "id" => $id
+        ];
+
+        $query->execute($parameters);
+        
+    }
 
     
     // Method to COUNT the TOTAL number of Medias

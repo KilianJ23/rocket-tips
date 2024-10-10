@@ -12,14 +12,14 @@ class DashboardController extends AbstractController
 
     // Method displayDashboard() : Renders the Dashboard landing page.
 
-    public function displayDashboard() 
+    public function displayDashboard(): void
     {
         $this->render('front/admin/dashboard.html.twig', [], []);
     }
     
     // Method displayUsers() : Shows all the users
     
-    public function displayUsers() 
+    public function displayUsers(): void
     {
         $users = $this->um->getAllUsers();
         
@@ -27,20 +27,7 @@ class DashboardController extends AbstractController
             "users" => $users], []);
     }
     
-    // Method displayUser() : Shows the information of a single user
     
-    /*public function displayUser() 
-    {
-        $userId = $_GET['id'];
-        $user = $this->um->getUserById($userId);
-        
-        $this->render('front/admin/users/modifyUser.html.twig', [
-            'user'      => $user
-        ], []);
-        
-        $dc = new DefaultController();
-        $dc->clearSessionMessages();            // Clear the Session messages
-    }*/
     
     public function checkArticleForm(string $route) {
         if(isset($_SESSION['error_message'])) {
@@ -99,5 +86,49 @@ class DashboardController extends AbstractController
                 $this->redirect($route);
             }
         }
+    }
+    
+    // Method to display the comments of an article
+    
+    public function displayComments(): void {
+        
+        $articleId = $_GET['id'];
+        $am = new ArticlesManager();
+        $article = $am->getArticleById($articleId);
+        
+        $cm = new CommentsManager();
+        $comments = $cm->getCommentsByArticleId($articleId);
+        
+        $this->render('front/admin/articles/comments.html.twig', [
+            'comments' => $comments,
+            'article' => $article
+        ], []);
+        
+        $dc = new DefaultController();
+        $dc->clearSessionMessages();        // Clear the Session messages
+    }
+    
+    // Method to delete a comment from an article
+    
+    public function deleteComment(): void {
+        
+        // Clear the Session messages
+        $dc = new DefaultController();
+        $dc->clearSessionMessages();
+        
+        $cm = new CommentsManager();
+        
+        $id = $_GET['id'];
+        $commentId = $_GET['commentid'];
+        
+        if(($cm->deleteComment($commentId)) === true) {
+            $_SESSION['success_message'][] = "Le commentaire a été supprimé";
+        }
+        
+        else {
+            $_SESSION['error_message'][] = "Le commentaire n'a pas pu être supprimé";
+        }
+        
+        $this->redirect("articleComments&id=$id");
     }
 }

@@ -141,7 +141,13 @@ class ArticlesManager extends AbstractManager {
     // Methods to Fetch the articles per page
     
     public function getArticlesParPage(int $articles_par_page, int $offset): array {
-        $query = $this->db->prepare("SELECT * FROM articles ORDER BY publish_date DESC LIMIT :limit OFFSET :offset");
+        /*$query = $this->db->prepare("SELECT * FROM articles ORDER BY publish_date DESC LIMIT :limit OFFSET :offset");*/
+        
+        $query = $this->db->prepare("SELECT a.*, m.url AS image_url, m.alt AS image_alt
+                                    FROM articles a
+                                    LEFT JOIN medias m ON m.owner_id = a.id AND m.type = 'article'
+                                    ORDER BY a.publish_date DESC 
+                                    LIMIT :limit OFFSET :offset;");
         
         $query->bindValue(':limit', $articles_par_page, PDO::PARAM_INT);
         $query->bindValue(':offset', $offset, PDO::PARAM_INT);
@@ -153,9 +159,13 @@ class ArticlesManager extends AbstractManager {
     
     public function getArticlesByPageAndLevel(int $articles_par_page, int $offset, int $level): array {
         $query = $this->db->prepare("
-            SELECT * 
-            FROM articles 
-            WHERE level=:level ORDER BY publish_date DESC LIMIT :limit OFFSET :offset");
+            SELECT a.*, m.url AS image_url, m.alt AS image_alt
+            FROM articles a
+            LEFT JOIN medias m ON m.owner_id = a.id AND m.type = 'article'
+            WHERE a.level = :level
+            ORDER BY a.publish_date DESC 
+            LIMIT :limit OFFSET :offset;
+            ");
         
         $query->bindValue(':limit', $articles_par_page, PDO::PARAM_INT);
         $query->bindValue(':offset', $offset, PDO::PARAM_INT);
@@ -166,30 +176,6 @@ class ArticlesManager extends AbstractManager {
         return $result;
     }
     
-    // Method to fetch an article from his ID
-    
-    /*public function getArticleById(int $id): Article {
-        $query = $this->db->prepare('
-        SELECT * 
-        FROM articles
-        WHERE id=:id');
-
-        $parameters = [
-            "id" => $id
-        ];
-
-        $query->execute($parameters);
-        $result = $query->fetch(PDO::FETCH_ASSOC);
-
-        if ($result) {
-            $article = new Article($result["title"], $result["content"], $result["publish_date"], $result["level"], $result["description"]);
-
-            return $article;
-        }
-        else {
-            return null;
-        }
-    }*/
     
     // Method to fetch an article and his media
     

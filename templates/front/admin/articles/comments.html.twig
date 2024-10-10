@@ -1,0 +1,52 @@
+{% extends 'front/layout.html.twig' %}
+
+{% block title %}Commentaires de l'article{{ parent() }}{% endblock %}
+
+{% block main %}
+    <main class="container-grass">
+        <h1>Commentaires de l'article : {{ article.title|striptags }}</h1>
+        
+        {% if session.error_message %}
+            <div class="error alert" role="alert">
+                <ul>
+                    {% for error in session.error_message %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        {% if session.success_message %}
+            <div class="success alert" role="alert">
+                <ul>
+                    {% for success in session.success_message %}
+                        <li>{{ success }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        
+                    
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Utilisateur</th>
+                        <th>Contenu</th>
+                        <th>Date de publication</th>
+                        <th colspan="2">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for comment in comments %}
+                        <tr>
+                            <td>{{ comment.name|striptags }}</td>
+                            <td>{{ comment.content|striptags }}</td>
+                            <td>{{ comment.created_at|striptags }}</td>
+                            <td><a href="?route=deleteComment&id={{ article.id|striptags }}&commentid={{ comment.id|striptags }}">Supprimer</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+{% endblock %}

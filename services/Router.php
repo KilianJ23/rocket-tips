@@ -88,6 +88,20 @@ class Router {
             $this->checkAdmin();
             $this->dbc->displayDashboard();
             break;
+            
+        case "articleComments":
+            $this->checkAdmin();
+            if (isset($_GET["id"])) {
+                $this->dbc->displayComments();
+             }
+            break;
+            
+        case "deleteComment":
+            $this->checkAdmin();
+            if (isset($_GET["id"])) {
+                $this->dbc->deleteComment();
+             }
+            break;
         
         
     // Pour USERS

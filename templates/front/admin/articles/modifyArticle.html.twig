@@ -69,11 +69,15 @@
             
             <div class="form-group">
                 <label for="alt_description">Description courte de l'image</label>
-                <textarea id="alt_description" name="alt_description" rows="1" required></textarea>
+                <textarea id="alt_description" name="alt_description" rows="1" required>{{ article.image_alt|striptags }}</textarea>
             </div>
         
             <button type="submit" class="bouton-submit">Appliquer les modifications</button>
         </form>
+        
+        <a href="?route=articleComments&id={{ article.id}}" class="bouton-comms">
+          Voir les commentaires
+        </a>
 
     </main>
 {% endblock %}

@@ -232,55 +232,75 @@ class ArticlesController extends AbstractController
         $dbc = new DashboardController();
         $data = $dbc->checkArticleForm("modifyArticle&id=$id");
         
-        $article = new Article($data["title"], $data["content"], $data["publish_date"], $data["level"], $data["description"]);
-        $article->setId($id);
+        if(empty($_SESSION['error_message'])){
         
-        //CHECK that the image given, if there is one, is valid
-        if(isset($_FILES['imag_article']) && $_FILES['imag_article']['name'] !== '') {
-            // Setting the variables we are gonna use in the uploadFile method
-                $dossier = "img_Of_Articles";
-                $route = "modifyArticle&id=$id";
-                $maxFileSize = 2 * 1024 * 1024; // 2 Mo
-                
-            // CHECK that the FILE SIZE is under the limit that we set with $maxFileSize.       
-                if ($_FILES['imag_article']['size'] > $maxFileSize) {
-                    $_SESSION['error_message'][] = "L'image est trop volumineuse. La taille maximale autorisée est de 2 Mo.";
-                    $this->redirect("modifyArticle&id=$id");
-                }
+            $article = new Article($data["title"], $data["content"], $data["publish_date"], $data["level"], $data["description"]);
+            $article->setId($id);
+            
+            //CHECK that the image given, if there is one, is valid
+            if(isset($_FILES['imag_article']) && $_FILES['imag_article']['name'] !== '') {
+                // Setting the variables we are gonna use in the uploadFile method
+                    $dossier = "img_Of_Articles";
+                    $route = "modifyArticle&id=$id";
+                    $maxFileSize = 2 * 1024 * 1024; // 2 Mo
                     
-                $model = new Uploads();
-                $addArticle['addImg'] = $model->uploadFile($_FILES['imag_article'], $dossier, $route);
-                
-                // GET the already existing media ID
-                
+                // CHECK that the FILE SIZE is under the limit that we set with $maxFileSize.       
+                    if ($_FILES['imag_article']['size'] > $maxFileSize) {
+                        $_SESSION['error_message'][] = "L'image est trop volumineuse. La taille maximale autorisée est de 2 Mo.";
+                        $this->redirect("modifyArticle&id=$id");
+                    }
+                        
+                    $model = new Uploads();
+                    $addArticle['addImg'] = $model->uploadFile($_FILES['imag_article'], $dossier, $route);
+                    
+                    // GET the already existing media ID
+                    
+                    $mm = new MediasManager();
+                    $mediaId = $mm->getIdFromOwner($id, "article");
+                    
+                    // IF the Media exists -> Update it, if it doesn't existe -> Create one.
+                    
+                    if($mediaId != "null"){
+                        $resultMedia = $mm->updateMedia($mediaId, $addArticle['addImg'], $data['alt_description'], $id, "article", $article->getPublishDate());
+                    }
+                    else {
+                        $resultMedia = $mm->addMedia($addArticle['addImg'], $data['alt_description'], $id, "article", $article->getPublishDate());
+                    }
+    
+                    if($resultMedia != "true"){
+                        $_SESSION['error_message'][] = "L'image n'a pas pu être importée en Base de données";
+                        $this->redirect("modifyArticle&id=$id");
+                    }
+            }
+            
+            $newArticle = $this->am->updateArticle($article);
+            $articleId = $_GET['id'];
+            $article = $this->am->getArticleById($articleId);
+            
+            if($article['image_url'] != null){
                 $mm = new MediasManager();
                 $mediaId = $mm->getIdFromOwner($id, "article");
-                
-                // IF the Media exists -> Update it, if it doesn't existe -> Create one.
-                
-                if($mediaId != "null"){
-                    $resultMedia = $mm->updateMedia($mediaId, $addArticle['addImg'], $data['alt_description'], $id, "article", $article->getPublishDate());
-                }
-                else {
-                    $resultMedia = $mm->addMedia($addArticle['addImg'], $data['alt_description'], $id, "article", $article->getPublishDate());
-                }
-
-                if($resultMedia != "true"){
-                    $_SESSION['error_message'][] = "L'image n'a pas pu être importée en Base de données";
-                    $this->redirect("modifyArticle&id=$id");
-                }
-        }
-        
-        $newArticle = $this->am->updateArticle($article);
-        
-        if($newArticle != "true"){
-            $_SESSION['error_message'][] = "L'article n'a pas pu être modifié, l'image a bien été changée.";
+                $mm->updateMediaAlt($mediaId, $data['alt_description']);
+            }
+            
+            if($newArticle != "true"){
+                $_SESSION['error_message'][] = "L'article n'a pas pu être modifié, l'image a bien été changée.";
+            }
+            else {
+                $_SESSION['success_message'][] = "L'article et l'image ont bien été modifiés !";
+            }
+            $this->redirect("modifyArticle&id=$id");
         }
         else {
-            $_SESSION['success_message'][] = "L'article et l'image ont bien été modifiés !";
-        }
-        $this->redirect("modifyArticle&id=$id");
-    }
+            $articleId = $_GET['id'];
+            $article = $this->am->getArticleById($articleId);
+            
+            $this->render('front/admin/articles/modifyArticle.html.twig', [
+                'article'      => $article
+            ], []);
+                    return;
+         }
+}
     
     
     // Method deleteArticle() : Completely erases the article and its associated media from the database
