@@ -1,6 +1,6 @@
 {% extends 'front/layout.html.twig' %}
 
-{% block title %}Article{{ parent() }}{% endblock %}
+{% block title %}{{ article.title|nl2br }}{{ parent() }}{% endblock %}
 
 {% block main %}
 <main class="container-grass">
@@ -30,11 +30,11 @@
         </header>
     
         <section class="article-content">
-            <p>{{ article.content|raw }}</p>
+            <p>{{ article.content|nl2br }}</p>
         </section>
     </article>
     
-    <section class="comments">
+    <section class="comments-add">
         <h2>Laisser un commentaire</h2>
         {% if session.user.name is defined %}
             <form action="index.php?route=article&id={{ article.id }}" method="POST">
@@ -44,20 +44,22 @@
         {% else %}
             <p>Vous devez être connecté pour ajouter un commentaire.</p>
         {% endif %}
+    {#</section>#}
         
-        <div class="comments-section">
+    {#<section class="user-comments-section">#}
+        <div class="comments-div">
             {% if comments is not empty %}
                 <h3>Commentaires :</h3>
                 <ul>
                     {% for comment in comments %}
                         <li>
-                            <p>par <strong>{{ comment.name|e }} :</strong> {{ comment.content|e }}</p>
-                            <p><em>{{ comment.created_at }}</em></p>
+                            <p>Le <em>{{ comment.created_at }}</em> par <strong>{{ comment.name|e }} :</strong> </p>
+                            <p>{{ comment.content|e }}</p>
                         </li>
                     {% endfor %}
                 </ul>
             {% else %}
-                <p>Aucun commentaire pour cet article.</p>
+                <p>Pas encore de commentaire pour cet article.</p>
             {% endif %}
         </div>
     </section>

@@ -68,14 +68,40 @@
 
         {% block footer %}
             <footer class="footer">
-                <p>Copyright : Kilian Janus</p>
-                <div class="social">
-                    <a href="https://www.youtube.com"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="https://twitter.com/?lang=fr"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="https://www.facebook.com/?locale=fr_FR"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="https://discord.com/"><i class="fa-brands fa-discord"></i></a>
-                </div>
+                <section class="footer-main">
+                    <p>Copyright : Kilian Janus</p>
+                     <ul class="footer-links">
+                                {% if session.role != "ADMIN" %}
+                                    <li><a href="?route=home" aria-current="page">Accueil</a></li>
+                                {% endif %}
+                                <li><a href="?route=articles">Articles</a></li>
+                                <li><a href="?route=forum">Forum</a></li>
+                                {% if session.role == "ADMIN" %}
+                                    <li><a href="?route=dashboard">Dashboard</a></li>
+                                    <li><a href="?route=home" aria-current="page">Accueil</a></li>
+                                {% endif %}
+                            </ul>
+                    <div class="social">
+                        <a href="https://www.youtube.com"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/?lang=fr"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://www.facebook.com/?locale=fr_FR"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://discord.com/"><i class="fa-brands fa-discord"></i></a>
+                    </div>
+                </section>
+                
+                <p class="legal">© 2024 
+                    <a href="http://www.rocket-tips.com/fr" target="_blank">Rocket Tips</a>
+                    . Tous droits réservés. 
+                    <a href="https://www.rocket-tips.com/fr/cgu" target="_blank">
+                        Conditions d'utilisation</a> - 
+                    <a href="https://www.rocket-tips.com/fr/politique-confidentialite" target="_blank">
+                        Politique de confidentialité</a> - 
+                    <a href="https://www.rocket-tips.com/fr/cgv" target="_blank">
+                        Conditions Générales de Vente</a> - 
+                    <a href="https://www.rocket-tips.com/fr/mentions-legales?ref=dofus" target="_blank">Mentions Légales</a>
+                </p>
+            
             </footer>
         {% endblock %}
         

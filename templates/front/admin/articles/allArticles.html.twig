@@ -45,12 +45,16 @@
                     {% for article in articles %}
                         <tr>
                             <td>{{ article.title|striptags }}</td>
-                            <td>{{ article.content|striptags }}</td>
-                            <td>{{ article.publish_date|striptags }}</td>
-                            <td>{{ article.level|striptags }}</td>
-                            <td>{{ article.description|striptags }}</td>
-                            <td><a href="?route=modifyArticle&id={{ article.id|striptags }}">Modifier</a></td>
-                            <td><a href="?route=deleteArticle&id={{ article.id|striptags }}">Supprimer</a></td>
+                            {% if article.content|length > 100 %}
+                               <td>{{ article.content|slice(0, 100) ~ '...'|striptags }}</td>
+                            {% else %}
+                                <td>{{ article.content|striptags }}</td>
+                            {% endif %}
+                            <td>{{ article.publish_date|e }}</td>
+                            <td>{{ article.level|e }}</td>
+                            <td>{{ article.description|e }}</td>
+                            <td><a href="?route=modifyArticle&id={{ article.id|e }}">Modifier</a></td>
+                            <td><a href="?route=deleteArticle&id={{ article.id|e }}">Supprimer</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>

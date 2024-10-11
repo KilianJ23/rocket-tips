@@ -2,6 +2,8 @@
     width: 100%;
 }
 
+//Styling for the TITLE of the Article
+
 .header-article {
     text-align: center;
     display: flex;
@@ -34,13 +36,6 @@
         background-color: rgba(255, 0, 0, 0.7); /* RED for ADVANCED */
     }
 }
-/*
-.article-content {
-    background-color: $white;
-    opacity: 0.9;
-    padding: 5px;
-    border-radius: 15px;
-}*/
 
 .article-content {
     background-color: rgba(255, 255, 255, 0.9);
@@ -57,13 +52,83 @@
     margin-bottom: 1.5em;
 }
 
+// STYLING for the COMMENTS section
+
+.comments-add {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 2px;
+    margin-top: 10px;
+    border-style: inset;
+    border-radius: 10px;
+    max-width: 80vw;
+    
+    h2 {
+        margin: 5px 0px 10px 5px;
+    }
+    
+    textarea {
+        border-radius: 10px;
+        border: 2px solid $skyblue;
+        padding: 2px;
+        margin: 0px 5px;
+        height: 60px;
+    }
+    
+    ul {
+        list-style: none;
+        margin: 5px 0px;
+        
+        p:nth-child(2){
+            margin: 10px 0px;
+        }
+    }
+    
+    li {
+        margin: 5px 0px;
+        border: 2px solid $skyblue;
+        border-radius: 10px;
+        padding: 2px;
+        background-color: $black;
+        /*background-image: url("../../img/RLgrass.webp");*/
+        background-size: cover;
+        color: $white;
+    }
+}
+
+.comments-div {
+    
+    > p {
+        margin: 10px;
+    }
+}
+
 @media screen and (max-width: 768px) {
     
+    // STYLING for the title and image of the article
     .header-article {
     flex-direction: column;
         
         img {
             width: 250px;
+        }
+    }
+    
+    // STYLING for the comment section
+    .comments-add {
+        max-width: 90vw;
+        
+        form {
+            display: flex;
+            flex-direction: column;
+            
+            button {
+                margin: 4px;
+                width: 60px;
+            }
+        }
+    
+        textarea {
+            width: 150px;
         }
     }
 }

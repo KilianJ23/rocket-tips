@@ -1,51 +1,105 @@
 .footer {
+    background-color: $darkblack;
+}
+
+.footer-main {
     display: flex;
     justify-content: space-between;
     align-items: center;
     bottom: 0;
     width: 100%;
-    background-color: #010a13;
-    color: #FFFFFF;
+    background-color: $darkblack;
+    color: $white;
     text-align: center;
     padding: 0;
-  }
-
-.footer p {
+    
+    p {
     font-family: "Krona One";
-    font-size: clamp(0.6rem, 1.5vw, 1rem);
+    font-size: 1rem;
     margin-left: 1vw;
-}
+    }
+ }
+
+// SOCIAL MEDIA links style
 
 .social {
     display: flex;
-    padding: 1em;
-  }
-.social a {
-    text-decoration: none;
-    color: #29B4E0;
-}
-.social a:hover {
-  background-color: #1E2328;
-  border-radius: 1em;
-}
-
-.social i {
+    
+    i {
     display: flex;
     flex-direction:column;
     justify-content: space-between;
     padding: 0 1em;
-  }
-
-/*.social a:visited {
-    color: #C89C3D;
-  }*/
-.social a:active {
-    color: white;
-  }
-  
-@media screen and (max-width:375px) {
+    }
     
-    .footer {
+    a {
+    text-decoration: none;
+    color: #29B4E0;
+    }
+    
+    a:hover {
+      background-color: #1E2328;
+      border-radius: 2px;
+    }
+    
+    a:active {
+    color: white;
+    }
+ }
+
+
+// LINKS LIST style
+
+.footer-links {
+    list-style: none;
+    
+    li {
+        margin: 10px 0px;
+    }
+    
+    a {
+    text-decoration: none;
+    font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+    color: $white;
+    }
+    
+    a:before {
+          content: "«";
+          color: $darkblue;
+        }
+        a:after {
+          content: "»";
+          color: $darkblue;
+        }
+    
+    a:hover {
+      border-radius: 2px;
+      background-color: $darkblue;
+    }
+}
+
+// LEGAL mentions style
+
+.legal {
+    font-size: 0.7rem;
+    font-family: Arial;
+    color: $white;
+    text-align: center;
+    padding: 0px 0px 5px 0px;
+    
+    a {
+        text-decoration: none;
+        color: $white;
+    }
+    
+    a:hover {
+        text-decoration: underline;
+    }
+}
+  
+@media screen and (max-width:768px) {
+    
+    .footer-main {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -55,6 +109,17 @@
     color: #FFFFFF;
     text-align: center;
     padding-top: 10px;
-  }
-
+    }
+    
+    .social {
+        padding: 0 0 5px 0;
+        margin-bottom: 15px;
+    }
+    
+    .footer-links {
+        margin: 8px 0px 10px 0px;
+    
+        a {
+        }
+    }
 }

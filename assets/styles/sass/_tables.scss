@@ -7,6 +7,9 @@
     td {
         padding: 10px;
         border: 1px solid $darkgrey;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 70%;
     }
     
     th:nth-child(2), /* Colonne Contenu */
