@@ -4,7 +4,7 @@
 
 {% block main %}
     <main class="container-grass">
-        <h1>Commentaires de l'article : {{ article.title|striptags }}</h1>
+        <h1>Commentaires de l'article : {{ article.title|e }}</h1>
         
         {% if session.error_message %}
             <div class="error alert" role="alert">
@@ -39,10 +39,10 @@
                 <tbody>
                     {% for comment in comments %}
                         <tr>
-                            <td>{{ comment.name|striptags }}</td>
-                            <td>{{ comment.content|striptags }}</td>
-                            <td>{{ comment.created_at|striptags }}</td>
-                            <td><a href="?route=deleteComment&id={{ article.id|striptags }}&commentid={{ comment.id|striptags }}">Supprimer</a></td>
+                            <td>{{ comment.name|e }}</td>
+                            <td>{{ comment.content|e }}</td>
+                            <td>{{ comment.created_at|e }}</td>
+                            <td><a href="?route=deleteComment&id={{ article.id|e }}&commentid={{ comment.id|e }}">Supprimer</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>

@@ -46,7 +46,7 @@ class ArticlesManager extends AbstractManager {
             "id" => $article->getId()
         ];
         
-        return $query->execute($parameters);
+        return $query->execute($parameters); // returns True or False
     }
     
     // Method to delete an Article and its associated media
@@ -194,7 +194,7 @@ class ArticlesManager extends AbstractManager {
 
     }
     
-    // Method to fetch the N last articles in the database
+    // Method to fetch the N last articles and their media in the database
     
     public function getLastArticles(int $n): array {
     $query = $this->db->prepare("

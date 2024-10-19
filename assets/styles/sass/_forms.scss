@@ -10,13 +10,6 @@
     min-height: 94vh;
     background-position: center;
     
-    > h1 {
-        text-align: center;
-        margin-bottom: 20px;
-        margin-top: 15px;
-        font-size: 1.5rem;
-        color: $white;
-    }
 }
 
 .register-form {
@@ -65,6 +58,11 @@ fieldset {
 
 .register-btn:hover {
     background-color: $darkblue;
+}
+
+.log-link {
+    font-size: 0.5em;
+    font-family: Arial;
 }
 
 /* Responsive */
@@ -135,7 +133,7 @@ fieldset {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Ajuste le padding pour différents écrans */
+/* Adjusting the padding according to the screen size */
 @media (max-width: 1200px) {
     .article-admin-form {
         padding: 15px;
@@ -144,7 +142,7 @@ fieldset {
 
 @media (max-width: 768px) {
     .article-admin-form {
-        max-width: 95%; /* Pour les petits écrans */
+        max-width: 95%; 
         padding: 10px;
     }
 }
@@ -156,7 +154,6 @@ fieldset {
     }
 }
 
-/* Garde les autres styles similaires */
 .article-admin-form {
     .form-group {
     margin-bottom: 15px;

@@ -12,29 +12,29 @@
         max-width: 70%;
     }
     
-    th:nth-child(2), /* Colonne Contenu */
+    th:nth-child(2), 
     td:nth-child(2) {
-        width: 70%; /* Donne plus d'espace à la colonne Contenu */
+        width: 70%; 
     }
     
-    th:nth-child(4), /* Colonne Niveau */
+    th:nth-child(4), 
     td:nth-child(4) {
-        width: 5%; /* Réduit la largeur de la colonne Niveau */
+        width: 5%; 
     }
     
-    th:nth-child(5), /* Colonne Description */
+    th:nth-child(5), 
     td:nth-child(5) {
-        width: 15%; /* Ajuste la colonne Description */
+        width: 15%; 
     }
     
-    th:nth-child(3), /* Colonne Date de publication */
+    th:nth-child(3), 
     td:nth-child(3) {
         width: 15%;
     }
     
     th:nth-child(6), 
     td:nth-child(6) {
-        width: 10%; /* Actions */
+        width: 10%; 
     }
 }
 
@@ -44,5 +44,13 @@ table {
 
 
 h1 {
-    @include heading-style(26px, 'Krona One',  20px, 15px, $black, bold, uppercase, 1.2, center, none);
+    @include heading-style(26px, 'Krona One',  20px, 25px, $white, bold, uppercase, 1.2, center, none);
+}
+
+h2 {
+    @include heading-style(20px, 'Krona One',  0px, 10px, $white, bold, uppercase, 1.2, center, none);
+}
+
+h3 {
+    @include heading-style(18px, 'Krona One',  0px, 10px, $black, bold, none, 1.2, center, none);
 }

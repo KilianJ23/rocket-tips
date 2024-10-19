@@ -34,15 +34,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const logo = document.querySelector('.nav-icon');
     
     function bounceLogo() {
-        // Ajouter la classe bounce pour démarrer l'animation
+        // Adding the "bounce" class to initiate the animation
         logo.classList.add('bounce');
         
-        // Retirer la classe après la durée de l'animation (0.5s)
+        // Removing the "bounce" class after the animation duration (0.5s)
         setTimeout(() => {
             logo.classList.remove('bounce');
         }, 500);
     }
 
-    // Déclencher le saut toutes les 10 secondes
+    // Triggering the jump every 10 seconds
     setInterval(bounceLogo, 10000);
 });

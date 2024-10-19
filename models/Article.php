@@ -13,7 +13,7 @@ class Article
     ) {
     }
 
-                                                // Getters et setters
+                                                // Getters and setters
     public function getId(): ?int
     {
         return $this->id;

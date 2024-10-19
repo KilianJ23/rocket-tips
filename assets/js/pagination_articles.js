@@ -3,9 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     paginationLinks.forEach(link => {
         link.addEventListener('click', function(event) {
-            event.preventDefault(); // Empêche le rechargement de la page
+            event.preventDefault(); // Preventing the page from reloading
             const page = this.getAttribute('data-page');
-            loadArticles(page); // Appel de la fonction pour charger les articles
+            loadArticles(page); // Call to the function that Loads articles
         });
     });
 
@@ -19,15 +19,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(data, 'text/html');
 
-                // Remplacement des articles
+                // Replacing the articles
                 const newArticles = doc.querySelector('.container-article-cards').innerHTML;
                 document.querySelector('.container-article-cards').innerHTML = newArticles;
 
-                // Remplacement de la pagination
+                // Replacing the paging system
                 const newPagination = doc.querySelector('#pagination').innerHTML;
                 document.querySelector('#pagination').innerHTML = newPagination;
 
-                // Réappliquer les événements aux nouveaux liens de pagination
+                // Reapplying the events to the new paging links
                 const newPaginationLinks = document.querySelectorAll('.page-link');
                 newPaginationLinks.forEach(link => {
                     link.addEventListener('click', function(event) {

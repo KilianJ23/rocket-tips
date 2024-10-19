@@ -25,8 +25,8 @@
     
     <article class="container-article">
         <header class="header-article">
-            <h1 class="level-{{ article.level }}">{{ article.title|striptags }}</h1>
-            <img src="{{ article.image_url }}" alt="{{ article.image_alt|striptags }}">
+            <h1 class="level-{{ article.level }}">{{ article.title|e }}</h1>
+            <img src="{{ article.image_url }}" alt="{{ article.image_alt|e }}">
         </header>
     
         <section class="article-content">

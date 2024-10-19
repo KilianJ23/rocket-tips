@@ -43,7 +43,7 @@ class MediasManager extends AbstractManager {
     
     public function updateMedia(int $media_id, string $url, string $alt, int $owner_id, string $owner_type, string $publish_date): bool {
     
-        // Vérification de l'existence du owner_id dans la table owner_type
+        // Checking that owner_id exists in the right owner_type table
         if ($owner_type === 'article') {
             $query = $this->db->prepare("SELECT COUNT(*) FROM articles WHERE id = :id");
         } elseif ($owner_type === 'user') {
@@ -53,12 +53,12 @@ class MediasManager extends AbstractManager {
         $query->bindValue(':id', $owner_id, PDO::PARAM_INT);
         $query->execute();
         
-        // Vérification de l'existence du owner_id
+        // Checking that owner_id exists
         if ($query->fetchColumn() == 0) {
             throw new Exception("L'ID $owner_id n'existe pas dans la table $owner_type");
         }
         
-        // Si tout est correct : mise à jour du média
+        // If all is good : update the media
         $query = $this->db->prepare("
             UPDATE medias 
             SET url = :url, alt = :alt, owner_id = :owner_id, type = :owner_type, created_at = :publish_date

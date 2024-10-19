@@ -69,7 +69,7 @@
  *    @include heading-style(36px, 'Krona One',  20px, 15px, $black, bold, uppercase, 1.2, center, none);
  */
 
- @mixin heading-style($font-size: 24px, $font-family: 'Krona One', $margin-top: 10px, $margin-bottom: 10px, $color: $black, $font-weight: normal, $text-transform: none,  $line-height: 1.4, $text-align: left, $text-decor: none) {  
+ @mixin heading-style($font-size: 24px, $font-family: 'Krona One', $margin-top: 10px, $margin-bottom: 10px, $color: $white, $font-weight: normal, $text-transform: none,  $line-height: 1.4, $text-align: left, $text-decor: none) {  
   font-size       : $font-size;
   font-family     : $font-family, Arial;
   margin-top      : $margin-top;
@@ -116,13 +116,13 @@
       color: $red;
     }
   } @else if $type == 'warning' {
-    background-color: $bright_yarrow;
+    background-color: $orange;
     color: $white;
-    border: 1px solid $bright_yarrow;
+    border: 1px solid $orange;
 
     &:hover {
       background-color: $white;
-      color: $bright_yarrow;
+      color: $orange;
     }
   } @else if $type == 'dashboard' {
     background-color: $seagreen;
@@ -135,32 +135,13 @@
       color: green;
     }
   } @else if $type == 'validate' { 
-    background-color: $mint_feaf;
+    background-color: $green;
     color: $white;
-    border: 1px solid $mint_feaf;
+    border: 1px solid $green;
 
     &:hover {
       background-color: $white;
       color: $mint_feaf;
     } 
-  }@else if $type == 'reject' { 
-      background-color: $pink_Glamour;
-      color: $white;
-      border: 1px solid $mint_feaf;
-
-    &:hover {
-      background-color: $white;
-      color: $mint_feaf;
-    }
-  } @else {
-    background-color: $electron_Blue; // Default color
-    color: $white;
-    border: 1px solid $electron_Blue;
-
-    &:hover {
-      background-color: $white;
-      color: $electron_Blue;
-      // background-color: darken($electron_Blue, 10%);
-    }
   }
 }

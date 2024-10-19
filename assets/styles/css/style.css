@@ -549,6 +549,7 @@ main {
 }
 .article-item h3 {
   font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: #FFFFFF;
 }
 .article-item img {
   width: 100%;
@@ -585,6 +586,7 @@ main {
 .section-articles .container-filters h2 {
   margin: 7px;
   padding-left: 20px;
+  color: #18181C;
 }
 .section-articles .filter-buttons {
   display: flex;
@@ -658,7 +660,7 @@ main {
   background-image: url(../../img/grass.webp);
 }
 .section-articles .container-description h2 {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
@@ -780,6 +782,12 @@ main {
 }
 .comments-add h2 {
   margin: 5px 0px 10px 5px;
+  color: #18181C;
+  text-align: left;
+  text-transform: none;
+}
+.comments-add h3 {
+  text-align: left;
 }
 .comments-add textarea {
   border-radius: 10px;
@@ -953,10 +961,36 @@ h1 {
   font-size: 26px;
   font-family: "Krona One", Arial;
   margin-top: 20px;
-  margin-bottom: 15px;
-  color: #18181C;
+  margin-bottom: 25px;
+  color: #FFFFFF;
   font-weight: bold;
   text-transform: uppercase;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+}
+
+h2 {
+  font-size: 20px;
+  font-family: "Krona One", Arial;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  color: #FFFFFF;
+  font-weight: bold;
+  text-transform: uppercase;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+}
+
+h3 {
+  font-size: 18px;
+  font-family: "Krona One", Arial;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  color: #18181C;
+  font-weight: bold;
+  text-transform: none;
   line-height: 1.2;
   text-align: center;
   text-decoration: none;
@@ -971,13 +1005,6 @@ h1 {
   padding: 10px;
   min-height: 94vh;
   background-position: center;
-}
-.container-grass > h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  margin-top: 15px;
-  font-size: 1.5rem;
-  color: #FFFFFF;
 }
 
 .register-form {
@@ -1026,6 +1053,11 @@ fieldset {
 
 .register-btn:hover {
   background-color: #047ea5;
+}
+
+.log-link {
+  font-size: 0.5em;
+  font-family: Arial;
 }
 
 /* Responsive */

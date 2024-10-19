@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Rocket Tips est une plateforme dédiée aux joueurs de Rocket League, offrant des conseils, des stratégies et un forum pour échanger avec la communauté. Améliorez votre gameplay avec des articles pour débutants, intermédiaires et avancés !">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Krona+One&display=swap" rel="stylesheet">
@@ -13,7 +14,7 @@
             {% endblock %}
         </title>
         {% block stylesheets %}
-            <link rel="stylesheet" href="assets/styles/css/style.css" />
+            <link rel="stylesheet" href="assets/styles/css/style.css">
         {% endblock %}
     </head>
     <body class="container-all">
@@ -45,8 +46,8 @@
                     </div>
                     
                     <div class="nav-authentication">
-                        <a href="#" class="user-toggler" aria-label="Sign in page">
-                          <img src="./assets/img/user.svg" alt="user icon" />
+                        <a href="?route=inscription" class="user-toggler" aria-label="Sign in page">
+                          <img src="./assets/img/user.svg" alt="user icon">
                         </a>
                         <div class="sign-btns">
                             {% if not session.user is defined %}
@@ -106,7 +107,7 @@
         {% endblock %}
         
         {% block javascript %}
-            <script type="application/javascript" src="assets/js/main.js"></script>
+            <script src="assets/js/main.js"></script>
             {% if scripts is defined %}
                 {% for script in scripts %}
                     <script src="{{ script }}"></script>
